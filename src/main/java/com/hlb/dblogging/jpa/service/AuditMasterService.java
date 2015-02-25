@@ -1,7 +1,10 @@
 package com.hlb.dblogging.jpa.service;
 
+import java.util.List;
+
 import com.hlb.dblogging.jpa.model.AuditMaster;
 
 public interface AuditMasterService {
-	public void create(AuditMaster auditMaster);
+	void create(AuditMaster auditMaster);
+	List<AuditMaster> getListOfMessages();
 }

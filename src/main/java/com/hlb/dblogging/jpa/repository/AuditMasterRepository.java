@@ -13,6 +13,9 @@ public interface AuditMasterRepository extends CrudRepository<AuditMaster, Integ
 	@Query("select e from AuditMaster e where MessageFormat = ?")
 	List<AuditMaster> findByMessageFormat(String messageFormat);
 	
+	@Query("select e from AuditMaster e")
+	List<AuditMaster> findAllMessages();
+	
 }
 
 	
