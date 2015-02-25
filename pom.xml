@@ -10,6 +10,7 @@
 		<spring.data.jpa.version>1.7.2.RELEASE</spring.data.jpa.version>
 		<hibernate.version>4.2.7.SP1</hibernate.version>
 		<spring.version>4.1.4.RELEASE</spring.version>
+		<spring.security.version>3.2.0.RELEASE</spring.security.version>		
 		<project.groupid>com.hlb.dblogging</project.groupid>
 	</properties>
 	<dependencies>
@@ -23,6 +24,16 @@
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>4.1.5.RELEASE</version>
 		</dependency>
 		<!-- Hibernate dependencies -->
 		<dependency>
