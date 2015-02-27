@@ -7,6 +7,8 @@ import com.hlb.dblogging.log.utility.ApplLogger;
 public class XSLTransformer {
 	
 	public static String xslTranformerStream;
+	public static String logLevel;
+	public static String retryPath;
 	
 	public XSLTransformer() {
 		try{

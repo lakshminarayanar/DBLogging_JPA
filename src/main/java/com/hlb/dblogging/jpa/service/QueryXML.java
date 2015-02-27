@@ -1,6 +1,10 @@
 package com.hlb.dblogging.jpa.service;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,14 +15,17 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.hlb.dblogging.jpa.model.AuditDetail;
 import com.hlb.dblogging.jpa.model.AuditMaster;
@@ -210,14 +217,74 @@ private java.sql.Clob stringToClob(String source)
     }
 }
 
-/*public static void main(String[] args) throws XPathExpressionException, ParserConfigurationException, SAXException {
-    QueryXML process = new QueryXML();
-   File   file = new File("/home/vicky/Documents/HLBTest.xml");
-//FileInputStream in =new FileInputStream(file);
-   @SuppressWarnings("rawtypes")
-List a1= process.query(file);
-   System.out.println(a1.get(0));
-   System.out.println(a1.get(1));
-}*/
-} 
 
+public boolean checkWhetherContentIsXml(ByteArrayInputStream inputStream){
+	try {
+		// standard for reading an XML file
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder;
+		Document doc = null;
+		// XPathExpression expr = null;
+		builder = factory.newDocumentBuilder();
+		// FileInputStream in=null;
+
+		doc = builder.parse(inputStream);
+		ApplLogger.getLogger().info("Parsing the formatted XML and map with POJOs....");
+		XPathExpression xPathExpression = XPathFactory.newInstance().newXPath().compile("//MessageFormat");
+		NodeList nodes = (NodeList) xPathExpression.evaluate(doc,XPathConstants.NODESET);
+		Node  node =	nodes.item(0);
+		if(node!=null && "XML".equalsIgnoreCase(node.getTextContent().trim()) ){
+			ApplLogger.getLogger().info("Message Format is : "+node.getTextContent());
+			return true;
+		}
+		
+	}
+
+	catch (Exception e) {
+		ApplLogger.getLogger().error("Error while mapping the xml data : ",e);
+	}
+	return false;
+}
+
+
+public String getLogLevelMessage(InputStream inputStream){
+	try {
+		// standard for reading an XML file
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder;
+		Document doc = null;
+		// XPathExpression expr = null;
+		builder = factory.newDocumentBuilder();
+		// FileInputStream in=null;
+
+		doc = builder.parse(inputStream);
+		ApplLogger.getLogger().info("Parsing the formatted XML and finding whether the LogLevel property matches or not");
+		XPathExpression xPathExpression = XPathFactory.newInstance().newXPath().compile("//LogLevel");
+		NodeList nodes = (NodeList) xPathExpression.evaluate(doc,XPathConstants.NODESET);
+		Node  node =	nodes.item(0);
+		if(node!=null && node.getTextContent()!=null && !node.getTextContent().isEmpty() ){
+			ApplLogger.getLogger().info("LogLevel property value from the Quere message is  : "+node.getTextContent());
+			return node.getTextContent().trim();
+		}
+	}catch (Exception e) {
+		ApplLogger.getLogger().error("Error while mapping the xml data to find LogLevel of message: ",e);
+	}
+	return null;
+}
+
+
+public static void main(String[] args) throws XPathExpressionException, ParserConfigurationException, SAXException, FileNotFoundException {
+	QueryXML process = new QueryXML();
+	File   file = new File("C:\\Users\\Lakshminarayana\\Desktop\\sample.xml");
+	FileInputStream in =new FileInputStream(file);
+	/*@SuppressWarnings("rawtypes")
+	List a1= process.mappingXMLToPojo(in);
+	System.out.println(a1.get(0));
+	System.out.println(a1.get(1));*/
+	
+	System.out.println("=======================");
+	process.getLogLevelMessage(in);
+}
+}
