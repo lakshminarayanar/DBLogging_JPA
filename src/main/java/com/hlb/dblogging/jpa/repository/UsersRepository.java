@@ -15,10 +15,16 @@ public interface UsersRepository extends CrudRepository<Users, Integer>{
 	@Query("select u from Users u where id = ?")
 	List<Users> findById(int id);
 	
+
+	*/
 	@Query("select u from Users u where username=?")
 	Users findByUsername(String username);
 	
-	@Query("select u from Users u where username like ? and enabled = 1")
-	List<Users> findByUsernameLike(String username);
-	*/
+	@Query("select u  from Users u")
+	List<Users> findListofUsers();
+	
+	@Query("select username from Users u where username like ?")
+	List<String> findUserList(String username);
+		
+	
 }

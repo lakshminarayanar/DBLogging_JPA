@@ -19,7 +19,6 @@ public class Users implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String username;
-	private String password;
 	private String createdBy;
 	private java.util.Date creationTime;
 	private String lastModifiedBy;
@@ -43,13 +42,6 @@ public class Users implements Serializable{
 		this.username = username;
 	}
 	
-	@Column(name="password", nullable=false)
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public void setCreationTime(java.util.Date creationTime) {
 		this.creationTime = creationTime;
 	}

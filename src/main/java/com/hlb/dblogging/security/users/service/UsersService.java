@@ -14,7 +14,11 @@ public interface UsersService {
 	  Users findById(int id) throws UsersNotFound;
 	  Users registerUser(Users users);
 	  Users findByUsername(String username) throws UsersNotFound;
-	  List<Users> findUsersByUsername(String username);
+	  List<String> findUsersByUsername(String username);
 	  HashSet<String> getAccessRightsMapForUser(int userId) throws UsersNotFound;
 	  void changePassword(Users users, String oldPassword, String newPassword) throws ChangePasswordException, UsersNotFound;*/
+	  List<Users> findAll();
+	  List<Users> findAllUsers();
+	  List<String> findUsersList(String username);
+
 }
