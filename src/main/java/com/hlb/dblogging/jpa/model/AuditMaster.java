@@ -39,6 +39,7 @@ public class AuditMaster implements Serializable {
 	private Date TransDateTime;
 	private Date UpdatedDateTime;
 	private Date CreatedDateTime;
+	private Date RequestDateTime;
 	private String CreatedBy;
 	private String UpdatedBy;
 	private String CustomString1;
@@ -267,25 +268,14 @@ public class AuditMaster implements Serializable {
 	public void setCustomDate2(Date customDate2) {
 		CustomDate2 = customDate2;
 	}
-	@Override
-	public String toString() {
-		return "AuditMaster [id=" + id + ", LogInterface=" + LogInterface
-				+ ", MessageFormat=" + MessageFormat + ", Host=" + Host
-				+ ", TransType=" + TransType + ", MessageID=" + MessageID
-				+ ", ServiceID=" + ServiceID + ", ApplName=" + ApplName
-				+ ", AppID=" + AppID + ", UniqueProcessID=" + UniqueProcessID
-				+ ", JournalSeq=" + JournalSeq + ", LogLevel=" + LogLevel
-				+ ", StatusCode=" + StatusCode + ", ErrorCode=" + ErrorCode
-				+ ", ErrorMessage=" + ErrorMessage + ", ReasonCode="
-				+ ReasonCode + ", TransDateTime=" + TransDateTime
-				+ ", UpdatedDateTime=" + UpdatedDateTime + ", CreatedDateTime="
-				+ CreatedDateTime + ", CreatedBy=" + CreatedBy + ", UpdatedBy="
-				+ UpdatedBy + ", CustomString1=" + CustomString1
-				+ ", CustomString2=" + CustomString2 + ", CustomString3="
-				+ CustomString3 + ", CustomInt1=" + CustomInt1
-				+ ", CustomInt2=" + CustomInt2 + ", CustomInt3=" + CustomInt3
-				+ ", CustomDate1=" + CustomDate1 + ", CustomDate2="
-				+ CustomDate2 + "]";
+	@Column(name="REQUESTDATETIME", nullable=false)
+	public Date getRequestDateTime() {
+		return RequestDateTime;
 	}
+	public void setRequestDateTime(Date requestDateTime) {
+		RequestDateTime = requestDateTime;
+	}
+	
+	
 	
 }

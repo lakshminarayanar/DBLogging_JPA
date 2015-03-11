@@ -154,7 +154,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 							Date startDate = df.parse((String) value);
 							aMaster.setTransDateTime(startDate);
   						   }catch (ParseException e) {
-							ApplLogger.getLogger().error("Error while converting string date to util date",e);
+							ApplLogger.getLogger().error("Error while converting TransDateTime string date to util date",e);
   						   }
   						}
 	break;
@@ -163,7 +163,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 							Date updatedDate = df.parse((String) value);
 							aMaster.setUpdatedDateTime(updatedDate);
 						   }catch(ParseException e) {
-							ApplLogger.getLogger().error("Error while converting string date to util date",e);
+							ApplLogger.getLogger().error("Error while converting UpdatedDateTime string date to util date",e);
 						   }
 						}
 	break;
@@ -172,10 +172,19 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 							Date createdDate = df.parse((String) value);
 							aMaster.setCreatedDateTime(createdDate);
 						   }catch(ParseException e) {
-							ApplLogger.getLogger().error("Error while converting string date to util date",e);
+							ApplLogger.getLogger().error("Error while converting CreatedDateTime string date to util date",e);
 						   }
 						}
 	break;
+  	case "ReqDateTime":{ DateFormat df = new SimpleDateFormat("ddMMyyyy HH:mm:ss");
+						   try {
+							Date requestDate = df.parse((String) value);
+							aMaster.setRequestDateTime(requestDate);
+						   }catch(ParseException e) {
+							ApplLogger.getLogger().error("Error while converting ReqDateTime string date to util date",e);
+						   }
+						}
+  	break;
   	case "CreatedBy":aMaster.setCreatedBy(value.toString());
 	break;
   	case "UpdatedBy":aMaster.setUpdatedBy(value.toString());

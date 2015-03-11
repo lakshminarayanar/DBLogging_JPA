@@ -3,5 +3,7 @@ package com.hlb.dblogging.jpa.service;
 import com.hlb.dblogging.jpa.model.AuditDetail;
 
 public interface AuditDetailService {
-	public void create(AuditDetail auditDetail);
+	void create(AuditDetail auditDetail);
+	String getMessageContentFormatted(String messageFormat,String uniqueProcessID);
+	
 }

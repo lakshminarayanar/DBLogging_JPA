@@ -10,7 +10,7 @@
 		<spring.data.jpa.version>1.7.2.RELEASE</spring.data.jpa.version>
 		<hibernate.version>4.2.7.SP1</hibernate.version>
 		<spring.version>4.1.4.RELEASE</spring.version>
-		<spring.security.version>3.2.0.RELEASE</spring.security.version>		
+		<spring.security.version>3.2.0.RELEASE</spring.security.version>
 		<project.groupid>com.hlb.dblogging</project.groupid>
 	</properties>
 	<dependencies>
@@ -31,9 +31,9 @@
 			<version>${spring.security.version}</version>
 		</dependency>
 		<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-test</artifactId>
-		<version>4.1.5.RELEASE</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.1.5.RELEASE</version>
 		</dependency>
 		<!-- Hibernate dependencies -->
 		<dependency>
@@ -66,12 +66,34 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0</version>
 			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>3.2.1</version>
 		</dependency>
 	</dependencies>
 
@@ -84,6 +106,25 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<!-- Specifies the directory in which the query types are generated -->
+							<outputDirectory>target/generated-sources</outputDirectory>
+							<!-- States that the APT code generator should look for JPA annotations -->
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
