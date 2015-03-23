@@ -5,5 +5,6 @@ import com.hlb.dblogging.jpa.model.ConfigurationProperties;
 public interface ConfigurationPropertiesService {
 
 	String getLogLevelForMessageSaving();
+	String updateLoglevl(String logLevel);
 	ConfigurationProperties getApplicationConfiguration();
 }

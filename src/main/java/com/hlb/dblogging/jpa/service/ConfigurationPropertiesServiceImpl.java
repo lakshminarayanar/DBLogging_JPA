@@ -22,5 +22,16 @@ public class ConfigurationPropertiesServiceImpl implements	ConfigurationProperti
 	public ConfigurationProperties getApplicationConfiguration() {
 		return configurationRepo.findConfigurationPropertiesOfApplication();
 	}
+	
+	@Override
+	public String updateLoglevl(String loglevel) {
+		ConfigurationProperties configpropToBeUpdated = configurationRepo.findConfigurationPropertiesOfApplication();
+		if(configpropToBeUpdated != null){
+			configpropToBeUpdated.setLogLevel(loglevel);
+			configurationRepo.save(configpropToBeUpdated);
+		}
+		return null;
+	}
+
 
 }

@@ -25,6 +25,9 @@ public interface UsersRepository extends CrudRepository<Users, Integer>{
 	
 	@Query("select username from Users u where username like ?")
 	List<String> findUserList(String username);
+	
+	@Query("select count(*) from Users where username=?")
+	int findUsernameExists(String username);
 		
 	
 }

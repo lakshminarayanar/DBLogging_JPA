@@ -19,57 +19,67 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+
 @Entity
-@Table(name="Users")
-public class Users implements Serializable{
-	/**
+@Table(name="Role")
+public class Role implements Serializable{
+
+	 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private String username;
-	private String password;
-	private boolean enabled;
-	private String createdBy;
-	private java.util.Date creationTime;
-	private String lastModifiedBy;
-	private java.util.Date lastModifiedTime;
-	private Set<Role> userRoles = new HashSet<Role>();
-	
+	 private String role;
+	 private boolean isDeleted= false;
+	 private String description;
+	 private String createdBy;
+	 private java.util.Date creationTime;
+	 private String lastModifiedBy;
+	 private java.util.Date lastModifiedTime;
+	 private Set<AccessRights> accessRights = new HashSet<AccessRights>();
+	 
 	@Id
 	@GeneratedValue
 	@Column(name="id", nullable=false, unique=true)
 	public int getId() {
 		return id;
 	}
+	
+	
 	public void setId(int id) {
 		this.id = id;
 	}
 	
-	@Column(name="username", nullable=false,unique=true)
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
+	@Column(name="role", nullable=false)
+	public String getRole() {
+		return role;
 	}
 	
-	@Column(name="password", nullable=true)
-	public String getPassword() {
-		return password;
+	public void setRole(String role) {
+		this.role = role;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	@Column(name="enabled", columnDefinition="NUMBER(1)") 
+
+	@Column(name="isDeleted", columnDefinition="NUMBER(1)")
 	@Type(type="org.hibernate.type.NumericBooleanType")
-	public boolean isEnabled() {
-		return enabled;
+	public boolean isDeleted() {
+		return isDeleted;
 	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	} 
+	 
+	@Column(name="description", nullable=true)
+	public String getDescription() {
+		return description;
 	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public void setCreationTime(java.util.Date creationTime) {
 		this.creationTime = creationTime;
 	}
@@ -102,18 +112,37 @@ public class Users implements Serializable{
 		return lastModifiedBy;
 	}
 
-
+	
+	
+	
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "UserToRole" , joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id" )},
+	@JoinTable(name = "RoleToAccessRights" , joinColumns = { @JoinColumn(name = "roleId", referencedColumnName = "id" )},
 	inverseJoinColumns=
-			{@JoinColumn (name = "userRoleId", referencedColumnName = "id" ) } )
-	public Set<Role> getUserRoles() {
-		return userRoles;
+			{@JoinColumn (name = "accessRightsId", referencedColumnName = "id" ) } )
+	public Set<AccessRights> getAccessRights() {
+		return accessRights;
 	}
-	
-	public void setUserRoles(Set<Role> userRoles) {
-		this.userRoles = userRoles;
-	}	
-	
-}
 
+
+	public void setAccessRights(Set<AccessRights> accessRights) {
+		this.accessRights = accessRights;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		Role inputRole = (Role) obj;
+		if(getId() == inputRole.getId()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	@Override
+	public int hashCode() {
+		return id;
+	}	
+}
