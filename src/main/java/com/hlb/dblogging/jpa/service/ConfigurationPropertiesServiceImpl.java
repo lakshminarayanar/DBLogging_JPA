@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.hlb.dblogging.jpa.model.ConfigurationProperties;
 import com.hlb.dblogging.jpa.repository.ConfigurationPropertiesRepository;
+import com.hlb.dblogging.log.utility.ApplLogger;
 
 @Service
 public class ConfigurationPropertiesServiceImpl implements	ConfigurationPropertiesService {
@@ -29,6 +30,7 @@ public class ConfigurationPropertiesServiceImpl implements	ConfigurationProperti
 		if(configpropToBeUpdated != null){
 			configpropToBeUpdated.setLogLevel(loglevel);
 			configurationRepo.save(configpropToBeUpdated);
+			ApplLogger.getLogger().info("Loglevel updated succesfully to : "+loglevel);
 		}
 		return null;
 	}

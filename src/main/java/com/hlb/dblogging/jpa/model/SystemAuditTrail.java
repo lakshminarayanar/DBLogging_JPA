@@ -1,6 +1,7 @@
 package com.hlb.dblogging.jpa.model;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,8 +17,12 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="SystemAuditTrail")
-public class SystemAuditTrail {
+public class SystemAuditTrail implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Date date;
 	private int actorUserId;

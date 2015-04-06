@@ -3,6 +3,7 @@ package com.hlb.dblogging.security.users.service;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -35,11 +36,15 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Transactional(rollbackFor = { Exception.class })
 	public Users create(Users users) {	
+		try{
 		 Users usersToBeCreated = users;
 		 //PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		 //String hashedPassword = passwordEncoder.encode(usersToBeCreated.getPassword());
 		 //usersToBeCreated.setPassword(hashedPassword);
 		return usersRepository.save(usersToBeCreated);
+		}catch(Exception e){
+			throw e;
+		}
 	}
 	/*@Override
 	public List<Users> findAll() {
@@ -122,7 +127,7 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Override
 	@Transactional
-	public void changePassword(Users users, String oldPassword,
+	public Users changePassword(Users users, String oldPassword,
 			String newPassword){
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if(!passwordEncoder.matches(oldPassword, users.getPassword())) {
@@ -131,19 +136,26 @@ public class UsersServiceImpl implements UsersService {
 		
 		String hashedPassword = passwordEncoder.encode(newPassword);		
 		users.setPassword(hashedPassword);		
-		update(users);		
+		update(users);	
+		return users;
 	}
 	@Override
 	@Transactional
 	public Users update(Users users) {
-		Users usersToBeUpdated = usersRepository.findOne(users.getId());
+		Users usersToBeUpdated = usersRepository.findByUsername(users.getUsername());
 		
 		if(usersToBeUpdated == null)
 			 throw new RuntimeException("Username not found");
 		usersToBeUpdated.setUsername(users.getUsername());
 		usersToBeUpdated.setPassword(users.getPassword());
+		usersToBeUpdated.setLastModifiedBy(users.getUsername());
+		usersToBeUpdated.setLastModifiedTime(new Date());
 		usersRepository.save(usersToBeUpdated);		
 		return usersToBeUpdated;
+	}
+	@Override
+	public Users findByUsername(String username) {
+		return usersRepository.findByUsername(username);
 	}
 
 	 

@@ -58,7 +58,7 @@ public class AuditDetail implements Serializable {
 	public void setContent(String content) {
 		Content = content;
 	}
-	@Column(name="MESSAGETYPE", nullable=false)
+	@Column(name="MESSAGETYPE", nullable=true)
 	public String getMessageType() {
 		return MessageType;
 	}
@@ -72,7 +72,7 @@ public class AuditDetail implements Serializable {
 	public void setCreatedDateTime(Date createdDateTime) {
 		CreatedDateTime = createdDateTime;
 	}
-	@Column(name="UPDATEDDATETIME", nullable=false)
+	@Column(name="UPDATEDDATETIME", nullable=true)
 	public Date getUpdatedDateTime() {
 		return UpdatedDateTime;
 	}

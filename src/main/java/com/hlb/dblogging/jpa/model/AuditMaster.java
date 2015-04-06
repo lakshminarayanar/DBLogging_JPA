@@ -149,28 +149,28 @@ public class AuditMaster implements Serializable {
 	public void setLogLevel(String logLevel) {
 		LogLevel = logLevel;
 	}
-	@Column(name="STATUSCODE", nullable=false)
+	@Column(name="STATUSCODE", nullable=true)
 	public String getStatusCode() {
 		return StatusCode;
 	}
 	public void setStatusCode(String statusCode) {
 		StatusCode = statusCode;
 	}
-	@Column(name="ERRORCODE", nullable=false)
+	@Column(name="ERRORCODE", nullable=true)
 	public String getErrorCode() {
 		return ErrorCode;
 	}
 	public void setErrorCode(String errorCode) {
 		ErrorCode = errorCode;
 	}
-	@Column(name="ERRORMESSAGE", nullable=false)
+	@Column(name="ERRORMESSAGE", nullable=true)
 	public String getErrorMessage() {
 		return ErrorMessage;
 	}
 	public void setErrorMessage(String errorMessage) {
 		ErrorMessage = errorMessage;
 	}
-	@Column(name="REASONCODE", nullable=false)
+	@Column(name="REASONCODE", nullable=true)
 	public String getReasonCode() {
 		return ReasonCode;
 	}
@@ -184,14 +184,14 @@ public class AuditMaster implements Serializable {
 	public void setTransDateTime(Date transDateTime) {
 		TransDateTime = transDateTime;
 	}
-	@Column(name="UPDATEDDATETIME", nullable=false)
+	@Column(name="UPDATEDDATETIME", nullable=true)
 	public Date getUpdatedDateTime() {
 		return UpdatedDateTime;
 	}
 	public void setUpdatedDateTime(Date updatedDateTime) {
 		UpdatedDateTime = updatedDateTime;
 	}
-	@Column(name="CREATEDDATETIME", nullable=false)
+	@Column(name="CREATEDDATETIME", nullable=true)
 	public Date getCreatedDateTime() {
 		return CreatedDateTime;
 	}
@@ -205,63 +205,63 @@ public class AuditMaster implements Serializable {
 	public void setCreatedBy(String createdBy) {
 		CreatedBy = createdBy;
 	}
-	@Column(name="UPDATEDBY", nullable=false)
+	@Column(name="UPDATEDBY", nullable=true)
 	public String getUpdatedBy() {
 		return UpdatedBy;
 	}
 	public void setUpdatedBy(String updatedBy) {
 		UpdatedBy = updatedBy;
 	}
-	@Column(name="CUSTOMSTRING1", nullable=false)
+	@Column(name="CUSTOMSTRING1", nullable=true)
 	public String getCustomString1() {
 		return CustomString1;
 	}
 	public void setCustomString1(String customString1) {
 		CustomString1 = customString1;
 	}
-	@Column(name="CUSTOMSTRING2", nullable=false)
+	@Column(name="CUSTOMSTRING2", nullable=true)
 	public String getCustomString2() {
 		return CustomString2;
 	}
 	public void setCustomString2(String customString2) {
 		CustomString2 = customString2;
 	}
-	@Column(name="CUSTOMSTRING3", nullable=false)
+	@Column(name="CUSTOMSTRING3", nullable=true)
 	public String getCustomString3() {
 		return CustomString3;
 	}
 	public void setCustomString3(String customString3) {
 		CustomString3 = customString3;
 	}
-	@Column(name="CUSTOMINT1", nullable=false)
+	@Column(name="CUSTOMINT1", nullable=true)
 	public int getCustomInt1() {
 		return CustomInt1;
 	}
 	public void setCustomInt1(int customInt1) {
 		CustomInt1 = customInt1;
 	}
-	@Column(name="CUSTOMINT2", nullable=false)
+	@Column(name="CUSTOMINT2", nullable=true)
 	public int getCustomInt2() {
 		return CustomInt2;
 	}
 	public void setCustomInt2(int customInt2) {
 		CustomInt2 = customInt2;
 	}
-	@Column(name="CUSTOMINT3", nullable=false)
+	@Column(name="CUSTOMINT3", nullable=true)
 	public int getCustomInt3() {
 		return CustomInt3;
 	}
 	public void setCustomInt3(int customInt3) {
 		CustomInt3 = customInt3;
 	}
-	@Column(name="CUSTOMDATE1", nullable=false)
+	@Column(name="CUSTOMDATE1", nullable=true)
 	public Date getCustomDate1() {
 		return CustomDate1;
 	}
 	public void setCustomDate1(Date customDate1) {
 		CustomDate1 = customDate1;
 	}
-	@Column(name="CUSTOMDATE2", nullable=false)
+	@Column(name="CUSTOMDATE2", nullable=true)
 	public Date getCustomDate2() {
 		return CustomDate2;
 	}

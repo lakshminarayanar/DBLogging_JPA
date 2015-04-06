@@ -13,6 +13,7 @@ public interface UsersService {
 	  List<String> findUsersList(String username);
 	  boolean findUserExistInApplication(String username);
 	  HashSet<String>	getAccessRightsMapForUser(String username);
-	  void changePassword(Users users, String oldPassword, String newPassword);
+	  Users changePassword(Users users, String oldPassword, String newPassword);
 	  Users update(Users users);
+	  Users findByUsername(String username);
 }
