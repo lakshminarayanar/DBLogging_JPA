@@ -38,7 +38,7 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 	@Transactional(readOnly = true)
 	@Override
 	public List<AuditMaster> getListOfMessages() {
-		return	auditMasterRepo.findTop10ByLogInterfaceOrderByTransDateTimeDesc("MBASE");
+		return	auditMasterRepo.findFirst10ByLogInterfaceOrderByTransDateTimeDesc("MBASE");
 	}
 
 	@Transactional(readOnly = true)

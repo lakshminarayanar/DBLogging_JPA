@@ -1,0 +1,106 @@
+2015-04-07 11:55:30 ERROR ApplLogger:65 - Error caught while converting to ASCII
+java.io.FileNotFoundException: C:\Users\Lakshminarayana\Downloads\EBCDIC (Access is denied)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.convert(EbcdicToAsciiConvertUtility.java:59)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.main(EbcdicToAsciiConvertUtility.java:120)
+2015-04-07 11:55:30 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 12:58:37 ERROR ApplLogger:65 - Error caught while converting to ASCII
+java.io.FileNotFoundException: C:\Users\Lakshminarayana\Downloads\EBCDIC (Access is denied)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.convert(EbcdicToAsciiConvertUtility.java:59)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.main(EbcdicToAsciiConvertUtility.java:120)
+2015-04-07 12:58:37 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:01:23 ERROR ApplLogger:65 - Error caught while converting to ASCII
+java.io.FileNotFoundException: C:\Users\Lakshminarayana\Downloads\EBCDIC (Access is denied)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.convert(EbcdicToAsciiConvertUtility.java:59)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.main(EbcdicToAsciiConvertUtility.java:120)
+2015-04-07 13:01:23 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:01:56 ERROR ApplLogger:65 - Error caught while converting to ASCII
+java.io.FileNotFoundException: C:\Users\Lakshminarayana\Downloads\EBCDIC\EBCDIC (The system cannot find the file specified)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.convert(EbcdicToAsciiConvertUtility.java:59)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.main(EbcdicToAsciiConvertUtility.java:120)
+2015-04-07 13:01:56 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:21:05 ERROR ApplLogger:65 - Error caught while converting to ASCII
+java.io.FileNotFoundException: C:\Users\Lakshminarayana\Downloads\ASCII (Access is denied)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:221)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:171)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.convert(EbcdicToAsciiConvertUtility.java:62)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.main(EbcdicToAsciiConvertUtility.java:120)
+2015-04-07 13:21:05 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:21:22 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:22:37 ERROR ApplLogger:65 - Error caught while converting to ASCII
+java.io.FileNotFoundException: C:\Users\Lakshminarayana\Downloads\ASCII\ASCII.txt (The system cannot find the path specified)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:221)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:171)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.convert(EbcdicToAsciiConvertUtility.java:62)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.main(EbcdicToAsciiConvertUtility.java:120)
+2015-04-07 13:22:37 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:23:01 ERROR ApplLogger:65 - Error caught while converting to ASCII
+java.io.FileNotFoundException: C:\Users\Lakshminarayana\Downloads\ASCII\ASCII (The system cannot find the path specified)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:221)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:171)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.convert(EbcdicToAsciiConvertUtility.java:62)
+	at com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility.main(EbcdicToAsciiConvertUtility.java:120)
+2015-04-07 13:23:01 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:23:30 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:26:20 INFO  ApplLogger:121 - Successfully Converted...!!!
+2015-04-07 13:30:37 INFO  ApplLogger:131 - Successfully Converted...!!!
+2015-04-07 13:31:33 INFO  ApplLogger:131 - Successfully Converted...!!!
+2015-04-07 13:32:19 INFO  ApplLogger:131 - Successfully Converted...!!!
+2015-04-07 13:34:03 INFO  ApplLogger:131 - Successfully Converted...!!!
+2015-04-07 13:40:36 INFO  ApplLogger:134 - Successfully Converted...!!!
+2015-04-07 13:41:53 INFO  ApplLogger:134 - Successfully Converted...!!!
+2015-04-07 14:18:54 INFO  ApplLogger:135 - Successfully Converted...!!!
+2015-04-07 14:19:13 INFO  ApplLogger:135 - Successfully Converted...!!!
+2015-04-07 14:19:50 INFO  ApplLogger:135 - Successfully Converted...!!!
+2015-04-07 14:20:12 INFO  ApplLogger:135 - Successfully Converted...!!!
+2015-04-07 14:20:23 INFO  ApplLogger:135 - Successfully Converted...!!!
+2015-04-07 14:22:42 INFO  ApplLogger:116 - Output ASCII data is :        IDENTIFICATION DIVISION.                                         00000010       PROGRAM-ID.                                                      00000020           AGSPRUE.                                                     00000030       ENVIRONMENT DIVISION.                                            00000170       CONFIGURATION SECTION.                                           00000180       SPECIAL-NAMES.                                                   00000190           DECIMAL-POINT IS COMMA.                                      00000200                                                                        00000210       DATA DIVISION.                                                   00000220       WORKING-STORAGE SECTION.                                         00000230                                                                        00000920       LINKAGE SECTION.                                                 00000930                                                                        00000940       PROCEDURE DIVISION.                                              00000950       INICIO.                                                          00000960           MOVE '                                 ' TO CAMPO-L(IND)  00002100           .                                                            00003550
+2015-04-07 14:22:42 INFO  ApplLogger:135 - Successfully Converted...!!!
+2015-04-08 11:10:43 INFO  ApplLogger:88 - Output ASCII data is :        IDENTIFICATION DIVISION.                                         00000010       PROGRAM-ID.                                                      00000020           AGSPRUE.                                                     00000030       ENVIRONMENT DIVISION.                                            00000170       CONFIGURATION SECTION.                                           00000180       SPECIAL-NAMES.                                                   00000190           DECIMAL-POINT IS COMMA.                                      00000200                                                                        00000210       DATA DIVISION.                                                   00000220       WORKING-STORAGE SECTION.                                         00000230                                                                        00000920       LINKAGE SECTION.                                                 00000930                                                                        00000940       PROCEDURE DIVISION.                                              00000950       INICIO.                                                          00000960           MOVE '                                 ' TO CAMPO-L(IND)  00002100           .                                                            00003550
+2015-04-08 11:10:43 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-08 11:38:45 INFO  ApplLogger:88 - Output ASCII data is :        IDENTIFICATION DIVISION.                                         00000010       PROGRAM-ID.
+2015-04-08 11:38:45 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-08 11:39:13 INFO  ApplLogger:88 - Output ASCII data is :        IDENTIFICATION DIVISION.                                         00000010       PROGRAM-ID.                                                      00000020           AGSPRUE.                                                     00000030       ENVIRONMENT DIVISION.                                            00000170       CONFIGURATION SECTION.                                           00000180       SPECIAL-NAMES.                                                   00000190           DECIMAL-POINT IS COMMA.                                      00000200                                                                        00000210       DATA DIVISION.                                                   00000220       WORKING-STORAGE SECTION.                                         00000230                                                                        00000920       LINKAGE SECTION.                                                 00000930                                                                        00000940       PROCEDURE DIVISION.                                              00000950       INICIO.                                                          00000960           MOVE '                                 ' TO CAMPO-L(IND)  00002100           .                                                            00003550
+2015-04-08 11:39:13 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-08 11:48:06 INFO  ApplLogger:88 - Output ASCII data is :        IDENTIFICATION DIVISION.                                         00000010       PROGRAM-ID.                                                      00000020           AGSPRUE.
+2015-04-08 11:48:06 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-08 11:48:32 INFO  ApplLogger:88 - Output ASCII data is :        IDENTIFICATION DIVISION.                                         00000010       PROGRAM-ID.                                                      00000020
+2015-04-08 11:48:32 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-08 11:51:21 INFO  ApplLogger:88 - Output ASCII data is :        IDENTIFICATION DIVISION.
+2015-04-08 11:51:21 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-08 11:51:49 INFO  ApplLogger:88 - Output ASCII data is :        IDENTIFICATION DIVISION.                                         00000010       PROGRAM-ID.                                                      00000020           AGSPRUE.                                                     00000030       ENVIRONMENT DIVISION.                                            00000170       CONFIGURATION SECTION.                                           00000180       SPECIAL-NAMES.                                                   00000190           DECIMAL-POINT IS COMMA.                                      00000200                                                                        00000210       DATA DIVISION.                                                   00000220       WORKING-STORAGE SECTION.                                         00000230                                                                        00000920       LINKAGE SECTION.                                                 00000930                                                                        00000940       PROCEDURE DIVISION.                                              00000950       INICIO.                                                          00000960           MOVE '                                 ' TO CAMPO-L(IND)  00002100           .                                                            00003550
+2015-04-08 11:51:49 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-08 16:11:15 INFO  ApplLogger:88 - Output ASCII data is :                00002006602 02130006330005*DSPABCS      *AOP      BBHTLRTE  00    
+2015-04-08 16:11:15 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 10:59:55 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 10:59:55 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:21:16 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:21:16 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:28:04 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:28:04 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:29:40 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:29:40 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:31:43 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:31:43 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:35:41 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:35:41 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:41:04 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:41:09 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:46:06 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:46:06 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:52:44 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:52:44 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:56:36 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216 00000000000 02130012370005*DSPMBASE     *AOB      BBMBSCFINQ00            0000000000000                    BBMBSCFINQFNC                             0806596255  000000000000IB2G01    IB2G01    15307     0                       IB2G01    
+2015-04-09 11:56:36 INFO  ApplLogger:108 - Successfully Converted...!!!
+2015-04-09 11:57:13 INFO  ApplLogger:88 - Output ASCII data is :  5*AOB 192.168.30.216
+2015-04-09 11:57:13 INFO  ApplLogger:108 - Successfully Converted...!!!

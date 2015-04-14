@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +15,8 @@ public class ConfigurationProperties {
 	private int id;
 	private String logLevel;
 	private String retryPath;
+	@Lob
+	private String xslTransformer;
 	
 	@Id
 	@GeneratedValue
@@ -47,6 +50,15 @@ public class ConfigurationProperties {
 
 	public void setRetryPath(String retryPath) {
 		this.retryPath = retryPath;
+	}
+
+	@Column(name="XSLTRANSFORMER", nullable=true)
+	public String getXslTransformer() {
+		return xslTransformer;
+	}
+
+	public void setXslTransformer(String xslTransformer) {
+		this.xslTransformer = xslTransformer;
 	}
 
 	public ConfigurationProperties() {

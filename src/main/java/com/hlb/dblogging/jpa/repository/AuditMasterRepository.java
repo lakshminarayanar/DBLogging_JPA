@@ -18,7 +18,7 @@ public interface AuditMasterRepository extends PagingAndSortingRepository<AuditM
 	@Query("select e from AuditMaster e")
 	List<AuditMaster> findAllMessages();
 	
-	List<AuditMaster> findTop10ByLogInterfaceOrderByTransDateTimeDesc(String logInterface);
+	List<AuditMaster> findFirst10ByLogInterfaceOrderByTransDateTimeDesc(String logInterface);
 }
 
 	

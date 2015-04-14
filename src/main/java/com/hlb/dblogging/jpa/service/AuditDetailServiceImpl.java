@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
 import com.hlb.dblogging.jpa.model.AuditDetail;
 import com.hlb.dblogging.jpa.repository.AuditDetailRepository;
 import com.hlb.dblogging.log.utility.ApplLogger;
+import com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
@@ -47,11 +48,12 @@ public class AuditDetailServiceImpl implements AuditDetailService{
 			String content =	aDetailRepository.findMessageContentByUniqueProcessID(uniqueProcessID);
 		 if("XML".equalsIgnoreCase(messageFormat)){
 	        	// Fetch the Content from AuditDetail table with uniqueprocessId and display in dialog
-			 return format(content);
+			 	return format(content);
 	        }else{
 	        	// Fetch the Content from AuditDetail table with uniqueprocessId convert to ASCII Format and display in dialog
+	        	content =	hexToCharacter(content);
+	        	return	new EbcdicToAsciiConvertUtility().convert(content);
 	        }
-		return null;
 	}
 	
 	
@@ -87,5 +89,17 @@ public class AuditDetailServiceImpl implements AuditDetailService{
             throw new RuntimeException(e);
         }
     }
+	
+	 private static String hexToCharacter(String hexValue)
+	   {
+	      StringBuilder output = new StringBuilder("");
+	      for (int i = 0; i < hexValue.length(); i += 2)
+	      {
+	         String str = hexValue.substring(i, i + 2);
+	         output.append((char) Integer.parseInt(str, 16));
+	      }
+	      return output.toString();
+	   }
+	
 }
 

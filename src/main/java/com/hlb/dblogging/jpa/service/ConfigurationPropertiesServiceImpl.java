@@ -1,5 +1,7 @@
 package com.hlb.dblogging.jpa.service;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -34,6 +36,21 @@ public class ConfigurationPropertiesServiceImpl implements	ConfigurationProperti
 		}
 		return null;
 	}
+	
+	@Override
+	public String  updateNewXSLTFile(String newXSLT){
+		try{
+		ConfigurationProperties configpropToBeUpdated = configurationRepo.findConfigurationPropertiesOfApplication();
+		if(configpropToBeUpdated != null){
+			configpropToBeUpdated.setXslTransformer(newXSLT);
+			configurationRepo.save(configpropToBeUpdated);
+			ApplLogger.getLogger().info("New XSLT updated succesfully on :"+new Date());
+		}
+		}catch(Exception e){
+			ApplLogger.getLogger().error("Error caught while updating new XSLT : ",e);
+			throw new RuntimeException("Can't update XSLT now");
+		}
+		return null;
+	}
 
-
-}
+	}

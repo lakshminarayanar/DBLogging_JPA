@@ -6,5 +6,6 @@ public interface ConfigurationPropertiesService {
 
 	String getLogLevelForMessageSaving();
 	String updateLoglevl(String logLevel);
+	String updateNewXSLTFile(String newXSLT);
 	ConfigurationProperties getApplicationConfiguration();
 }
