@@ -2,7 +2,12 @@ package com.hlb.dblogging.jpa.service;
 
 import static com.hlb.dblogging.dsl.predicates.AuditMasterPredicates.getSearchFilterPredicate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,16 +27,18 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 	AuditMasterRepository auditMasterRepo;
 
 	@Transactional(rollbackFor = { Exception.class })
-	public void create(AuditMaster auditMaster) {
+	public long create(AuditMaster auditMaster) {
 		try {
 			AuditMaster auditMasterToBeCreated = auditMaster;
-			auditMasterRepo.save(auditMasterToBeCreated);
 			ApplLogger.getLogger().info("AuditMaster is saved in Database...!!! : "+auditMasterToBeCreated.getUniqueProcessID());
+			auditMasterToBeCreated = auditMasterRepo.save(auditMasterToBeCreated);
+			return auditMasterToBeCreated.getId();
 
 		} catch (Exception e) {
 			ApplLogger.getLogger().error("Error caught while saving the AuditMaster instance to Database",e);
 			if(auditMasterRepo==null)
 				ApplLogger.getLogger().info("Repository is not instantiated by Spring container...");
+			return 0;
 		}
 
 	}
@@ -46,7 +53,7 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 	public List<AuditMaster> getSearchResultList(SearchBean searchCriteria) {
 	
 		if(checkSearchCriteriaIsEmpty(searchCriteria))
-			return	getListOfMessages();
+			return	getListOfMessagesByTime(new Date());
 		ApplLogger.getLogger().info("Search criteria is not empty, so results are filtered..");
 		searchCriteria = trimInputSearchCriteria(searchCriteria);
 		
@@ -68,18 +75,82 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 	private SearchBean trimInputSearchCriteria(SearchBean searchCriteria){
 		// Trimming all the properties of the Search criteria
 		searchCriteria.setApplicationName(StringUtils.trimToNull(searchCriteria.getApplicationName()));
-		searchCriteria.setLogInterface(StringUtils.trimToNull(searchCriteria.getLogInterface()));
+		searchCriteria.setUniqueProcessId((StringUtils.trimToNull(searchCriteria.getUniqueProcessId())));
 		searchCriteria.setStatusCode(StringUtils.trimToNull(searchCriteria.getStatusCode()));
 		searchCriteria.setTransactionType(StringUtils.trimToNull(searchCriteria.getTransactionType()));
 		searchCriteria.setTransactionDateTime(searchCriteria.getTransactionDateTime());
-		
+		searchCriteria.setSegment(StringUtils.trimToNull(searchCriteria.getSegment()));
 		return searchCriteria;
 	}
 	
 	private boolean checkSearchCriteriaIsEmpty(SearchBean searchCriteria){
-	 return StringUtils.trimToNull(searchCriteria.getApplicationName())==null && StringUtils.trimToNull(searchCriteria.getLogInterface())==null &&
-			StringUtils.trimToNull(searchCriteria.getStatusCode())==null && StringUtils.trimToNull(searchCriteria.getTransactionType())==null &&
-			 searchCriteria.getTransactionDateTime() == null;
+	 return StringUtils.trimToNull(searchCriteria.getApplicationName())==null && StringUtils.trimToNull(searchCriteria.getUniqueProcessId())==null &&
+			StringUtils.trimToNull(searchCriteria.getStatusCode())==null && StringUtils.trimToNull(searchCriteria.getTransactionType())==null && 
+			StringUtils.trimToNull(searchCriteria.getSegment())==null && searchCriteria.getTransactionDateTime() == null;
 	}
+	
+	
+	@Override
+	public List<AuditMaster> getListOfMessagesByTime(Date date) {
+		List<AuditMaster> searchResultList = new ArrayList<>();
+		ApplLogger.getLogger().info("Date input passing is : "+date);
+		List<AuditMaster> tempList = auditMasterRepo.findFirst20ByTransDateTimeOrderByTransDateTimeDesc(getDateWithoutTime(date));
+		ApplLogger.getLogger().info("Size of the List with Today Transactions: "+tempList.size());
+		if(tempList.size()>0)
+			searchResultList.addAll(tempList);
+		
+		for(int i=0;i<=10;i++){
+			if(searchResultList.size()>=20)
+				break;
+			date = decreaseOneDayFromDate(date);
+			ApplLogger.getLogger().info("Date input with one day less passing is : "+date);
+			tempList = auditMasterRepo.findFirst20ByTransDateTimeOrderByTransDateTimeDesc(getDateWithoutTime(date));
+			ApplLogger.getLogger().info("Size of the List with one day before Transactions: "+tempList.size());
+			if(tempList.size()>0)
+				searchResultList.addAll(tempList);
+			
+			}
+		ApplLogger.getLogger().info("Size of the List Total Transactions: "+searchResultList.size());
+		return searchResultList;
+	}
+	
+	
+	private Date getDateWithoutTime(Date date){
+		DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		Date todayWithZeroTime = null;
+		try {
+			 todayWithZeroTime =formatter.parse(formatter.format(date));
+			 return todayWithZeroTime;
+		} catch (ParseException e) {
+			ApplLogger.getLogger().info("Error while removing time from date in Search Message ",e);
+		}
+		return new Date();
+	}
+	
+	
+	private Date decreaseOneDayFromDate(Date date){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DATE, -1);
+		/*cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.HOUR, 0);*/
+		return cal.getTime();
+	}
+	@Override
+	public List<AuditMaster> getResultByUniqueProcessId(String uniqueProcessId) {
+		try{
+			if(uniqueProcessId==null){
+				return new ArrayList<AuditMaster>();
+			}
+			return auditMasterRepo.findSearchListByUniqueProcessId(uniqueProcessId);
+		}catch(Exception e){
+			ApplLogger.getLogger().error("Error while fetching data for uniqueprocessid : "+uniqueProcessId, e);
+			return new ArrayList<AuditMaster>();
+		}
+	}
+	
+	
 	
 }

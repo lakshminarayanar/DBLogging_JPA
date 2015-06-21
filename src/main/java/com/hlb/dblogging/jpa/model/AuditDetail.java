@@ -27,6 +27,7 @@ public class AuditDetail implements Serializable {
 	private String MessageType;
 	private Date CreatedDateTime;
 	private Date UpdatedDateTime;
+	private long auditMasterId;
 	
 	@Id
 	@GeneratedValue
@@ -79,13 +80,22 @@ public class AuditDetail implements Serializable {
 	public void setUpdatedDateTime(Date updatedDateTime) {
 		UpdatedDateTime = updatedDateTime;
 	}
+	
+	@Column(name="AUDITMASTERID", nullable=false)	
+	public long getAuditMasterId() {
+		return auditMasterId;
+	}
+	public void setAuditMasterId(long auditMasterId) {
+		this.auditMasterId = auditMasterId;
+	}
 	@Override
 	public String toString() {
 		return "AuditDetail [id=" + id + ", UniqueProcessID=" + UniqueProcessID
 				+ ", MessageID=" + MessageID + ", MessageType=" + MessageType + ", CreatedDateTime="
 				+ CreatedDateTime + ", UpdatedDateTime=" + UpdatedDateTime
-				+ "]";
+				+ ", auditMasterId=" + auditMasterId + "]";
 	}
+	
 
 	
 

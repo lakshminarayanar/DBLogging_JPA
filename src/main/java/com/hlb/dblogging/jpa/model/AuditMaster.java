@@ -19,7 +19,7 @@ public class AuditMaster implements Serializable {
 	 * 
 	 */
 	
-	private int id;
+	private long id;
 	private static final long serialVersionUID = 1L;
 	private String LogInterface;
 	private String MessageFormat;
@@ -42,9 +42,9 @@ public class AuditMaster implements Serializable {
 	private Date RequestDateTime;
 	private String CreatedBy;
 	private String UpdatedBy;
-	private String CustomString1;
+	private String Segment;
 	private String CustomString2;
-	private String CustomString3;
+	private String CustomString1;
 	private int CustomInt1;
 	private int CustomInt2;
 	private int CustomInt3;
@@ -54,10 +54,10 @@ public class AuditMaster implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name="ID", nullable=false, unique=true)
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	@Column(name="LogInterface", nullable=false)
@@ -212,26 +212,29 @@ public class AuditMaster implements Serializable {
 	public void setUpdatedBy(String updatedBy) {
 		UpdatedBy = updatedBy;
 	}
+	@Column(name="SEGMENT", nullable=true)
+	public String getSegment() {
+		return Segment;
+	}
+	public void setSegment(String segment) {
+		Segment = segment;
+	}
+	
+	
+	@Column(name="CUSTOMSTRING2", nullable=true)
+	public String getCustomString2() {
+		return CustomString2;
+	}
+	
+	public void setCustomString2(String customString2) {
+		CustomString2 = customString2;
+	}
 	@Column(name="CUSTOMSTRING1", nullable=true)
 	public String getCustomString1() {
 		return CustomString1;
 	}
 	public void setCustomString1(String customString1) {
 		CustomString1 = customString1;
-	}
-	@Column(name="CUSTOMSTRING2", nullable=true)
-	public String getCustomString2() {
-		return CustomString2;
-	}
-	public void setCustomString2(String customString2) {
-		CustomString2 = customString2;
-	}
-	@Column(name="CUSTOMSTRING3", nullable=true)
-	public String getCustomString3() {
-		return CustomString3;
-	}
-	public void setCustomString3(String customString3) {
-		CustomString3 = customString3;
 	}
 	@Column(name="CUSTOMINT1", nullable=true)
 	public int getCustomInt1() {

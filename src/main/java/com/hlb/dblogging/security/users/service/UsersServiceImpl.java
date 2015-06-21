@@ -11,6 +11,8 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import com.hlb.dblogging.jpa.model.UserToAccessRights;
 import com.hlb.dblogging.jpa.model.Users;
 import com.hlb.dblogging.jpa.repository.UserToAccessRightsRepository;
 import com.hlb.dblogging.jpa.repository.UsersRepository;
+import com.hlb.dblogging.log.utility.ApplLogger;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -37,11 +40,27 @@ public class UsersServiceImpl implements UsersService {
 	@Transactional(rollbackFor = { Exception.class })
 	public Users create(Users users) {	
 		try{
-		 Users usersToBeCreated = users;
-		 //PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		 //String hashedPassword = passwordEncoder.encode(usersToBeCreated.getPassword());
-		 //usersToBeCreated.setPassword(hashedPassword);
-		return usersRepository.save(usersToBeCreated);
+		 Users usersToBeCreated;
+		 
+		 usersToBeCreated =	usersRepository.findByUsername(users.getUsername());
+		 if(usersToBeCreated!=null && usersToBeCreated.isEnabled()){
+			 throw new DataIntegrityViolationException("User already exists"); 
+		 }else{
+		 usersToBeCreated =	usersRepository.findPreviouslyExistingUser(users.getUsername());
+		 if(usersToBeCreated!=null){
+			 
+			 ApplLogger.getLogger().info("Existing user, updating user only..");
+			 usersToBeCreated.setEnabled(true);
+			 usersToBeCreated.setLastModifiedBy("admin");
+			 usersToBeCreated.setLastModifiedTime(new Date());
+			 usersRepository.save(usersToBeCreated);
+			 return usersToBeCreated;
+		 }
+		 else{
+			 ApplLogger.getLogger().info("New user, creating new user account only..");
+		 	return usersRepository.save(users);
+		 }
+		 }
 		}catch(Exception e){
 			throw e;
 		}
@@ -156,6 +175,12 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public Users findByUsername(String username) {
 		return usersRepository.findByUsername(username);
+	}
+	
+	@Transactional
+	@Override
+	public int deleteUser(String username) {
+		return usersRepository.deleteUser(username);
 	}
 
 	 

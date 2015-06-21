@@ -14,4 +14,7 @@ public interface AuditDetailRepository extends CrudRepository<AuditDetail, Seria
 	@Query("select e.content from AuditDetail e where UniqueProcessID = :uniqueProcessID")
 	String findMessageContentByUniqueProcessID(@Param("uniqueProcessID") String uniqueProcessID);
 	
+	
+	@Query("select e.content from AuditDetail e where auditMasterId = :auditMasterId")
+	String findMessageContentByAuditDetailID(@Param("auditMasterId") Long auditMasterId);
 }

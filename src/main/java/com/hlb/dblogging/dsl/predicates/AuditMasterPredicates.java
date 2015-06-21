@@ -12,14 +12,16 @@ public class AuditMasterPredicates {
         QAuditMaster auditMaster = QAuditMaster.auditMaster;
         if(searchCriteria.getApplicationName()!=null)
         	booleanBuilder.and(auditMaster.applName.contains(searchCriteria.getApplicationName()));
-        if(searchCriteria.getLogInterface()!=null)
-        	booleanBuilder.and(auditMaster.logInterface.contains(searchCriteria.getLogInterface()));
+        if(searchCriteria.getSegment()!=null)
+        	booleanBuilder.and(auditMaster.segment.eq(searchCriteria.getSegment()));
         if(searchCriteria.getStatusCode()!=null)
         	booleanBuilder.and(auditMaster.statusCode.contains(searchCriteria.getStatusCode()));
         if(searchCriteria.getTransactionType()!=null)
         	booleanBuilder.and(auditMaster.transType.contains(searchCriteria.getTransactionType()));
         if(searchCriteria.getTransactionDateTime()!=null)
         	booleanBuilder.and(auditMaster.transDateTime.eq(searchCriteria.getTransactionDateTime()));
+        if(searchCriteria.getUniqueProcessId()!=null)
+        	booleanBuilder.and(auditMaster.uniqueProcessID.eq(searchCriteria.getUniqueProcessId()));
         return booleanBuilder;
     }
 }

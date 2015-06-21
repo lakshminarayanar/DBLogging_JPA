@@ -39,13 +39,14 @@ public class AuditDetailServiceImpl implements AuditDetailService{
 			ApplLogger.getLogger().error("Error caught while saving the AuditDetail instance to Database",e);
 			if(aDetailRepository==null)
 				ApplLogger.getLogger().info("Repository is not instantiated by Spring container...");
+			throw new RuntimeException("Couldn't save AuditDetail data presently..");
 	
 		}
 	}
 
 	@Override
 	public String getMessageContentFormatted(String messageFormat,String uniqueProcessID) {
-			String content =	aDetailRepository.findMessageContentByUniqueProcessID(uniqueProcessID);
+			String content =	aDetailRepository.findMessageContentByAuditDetailID(Long.parseLong(uniqueProcessID));
 		 if("XML".equalsIgnoreCase(messageFormat)){
 	        	// Fetch the Content from AuditDetail table with uniqueprocessId and display in dialog
 			 	return format(content);
@@ -100,6 +101,6 @@ public class AuditDetailServiceImpl implements AuditDetailService{
 	      }
 	      return output.toString();
 	   }
-	
+		
 }
 

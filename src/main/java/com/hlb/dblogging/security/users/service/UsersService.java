@@ -16,4 +16,5 @@ public interface UsersService {
 	  Users changePassword(Users users, String oldPassword, String newPassword);
 	  Users update(Users users);
 	  Users findByUsername(String username);
+	  int deleteUser(String username);
 }

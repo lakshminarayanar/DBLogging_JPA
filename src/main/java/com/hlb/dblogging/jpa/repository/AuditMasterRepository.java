@@ -1,6 +1,7 @@
 package com.hlb.dblogging.jpa.repository;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +20,13 @@ public interface AuditMasterRepository extends PagingAndSortingRepository<AuditM
 	List<AuditMaster> findAllMessages();
 	
 	List<AuditMaster> findFirst10ByLogInterfaceOrderByTransDateTimeDesc(String logInterface);
+	
+	List<AuditMaster> findFirst20ByTransDateTimeOrderByTransDateTimeDesc(Date date);
+	
+	
+	@Query("select e from AuditMaster e where UniqueProcessID = ? order by id asc")
+	List<AuditMaster> findSearchListByUniqueProcessId(String uniqueProcessId);
+	
 }
 
 	

@@ -193,7 +193,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 	break;
   	case "CustomString2":aMaster.setCustomString2(value.toString());
 	break;
-  	case "CustomString3":aMaster.setCustomString3(value.toString());
+  	case "Segment":aMaster.setSegment(value.toString());
 	break;
   	case "CustomInt1":aMaster.setCustomInt1(Integer.valueOf(value.toString()));
 	break;
