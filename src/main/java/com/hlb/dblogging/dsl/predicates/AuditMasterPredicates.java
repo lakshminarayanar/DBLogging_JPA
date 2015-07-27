@@ -14,14 +14,18 @@ public class AuditMasterPredicates {
         	booleanBuilder.and(auditMaster.applName.contains(searchCriteria.getApplicationName()));
         if(searchCriteria.getSegment()!=null)
         	booleanBuilder.and(auditMaster.segment.eq(searchCriteria.getSegment()));
-        if(searchCriteria.getStatusCode()!=null)
-        	booleanBuilder.and(auditMaster.statusCode.contains(searchCriteria.getStatusCode()));
         if(searchCriteria.getTransactionType()!=null)
         	booleanBuilder.and(auditMaster.transType.contains(searchCriteria.getTransactionType()));
-        if(searchCriteria.getTransactionDateTime()!=null)
-        	booleanBuilder.and(auditMaster.transDateTime.eq(searchCriteria.getTransactionDateTime()));
         if(searchCriteria.getUniqueProcessId()!=null)
         	booleanBuilder.and(auditMaster.uniqueProcessID.eq(searchCriteria.getUniqueProcessId()));
+        
+        if(searchCriteria.getTransactionStartDateTime()!=null && searchCriteria.getTransactionEndDateTime()==null)
+        	booleanBuilder.and(auditMaster.transDateTime.after(searchCriteria.getTransactionStartDateTime()));
+        if(searchCriteria.getTransactionStartDateTime()==null && searchCriteria.getTransactionEndDateTime()!=null)
+        	booleanBuilder.and(auditMaster.transDateTime.before(searchCriteria.getTransactionEndDateTime()));
+        if(searchCriteria.getTransactionStartDateTime()!=null && searchCriteria.getTransactionEndDateTime()!=null)
+        	booleanBuilder.and(auditMaster.transDateTime.between(searchCriteria.getTransactionStartDateTime(), searchCriteria.getTransactionEndDateTime()));
+        
         return booleanBuilder;
     }
 }

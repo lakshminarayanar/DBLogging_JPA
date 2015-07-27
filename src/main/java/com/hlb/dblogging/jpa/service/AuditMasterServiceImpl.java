@@ -17,9 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hlb.dblogging.jpa.model.AuditMaster;
+import com.hlb.dblogging.jpa.model.QAuditMaster;
 import com.hlb.dblogging.jpa.model.SearchBean;
 import com.hlb.dblogging.jpa.repository.AuditMasterRepository;
 import com.hlb.dblogging.log.utility.ApplLogger;
+import com.mysema.query.types.OrderSpecifier;
 @Service
 public class AuditMasterServiceImpl implements AuditMasterService{
 
@@ -47,6 +49,15 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 	public List<AuditMaster> getListOfMessages() {
 		return	auditMasterRepo.findFirst10ByLogInterfaceOrderByTransDateTimeDesc("MBASE");
 	}
+	
+	/**
+     * Returns an OrderSpecifier object which sorts person in ascending order by using the last name.
+     * @return
+     */
+    private OrderSpecifier<Date> orderByTranscationDateAsc() {
+        return QAuditMaster.auditMaster.transDateTime.asc();
+    }
+ 
 
 	@Transactional(readOnly = true)
 	@Override
@@ -57,7 +68,7 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 		ApplLogger.getLogger().info("Search criteria is not empty, so results are filtered..");
 		searchCriteria = trimInputSearchCriteria(searchCriteria);
 		
-		Iterable<AuditMaster> searchResultList =  auditMasterRepo.findAll(getSearchFilterPredicate(searchCriteria));
+		Iterable<AuditMaster> searchResultList =  auditMasterRepo.findAll(getSearchFilterPredicate(searchCriteria),orderByTranscationDateAsc());
 		//Iterable<AuditMaster> searchResultList =  auditMasterRepo.findAll(QAuditMaster.auditMaster.logInterface.contains(searchCriteria.getLogInterface()));
 		return constructList(searchResultList);
 	}
@@ -76,17 +87,27 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 		// Trimming all the properties of the Search criteria
 		searchCriteria.setApplicationName(StringUtils.trimToNull(searchCriteria.getApplicationName()));
 		searchCriteria.setUniqueProcessId((StringUtils.trimToNull(searchCriteria.getUniqueProcessId())));
-		searchCriteria.setStatusCode(StringUtils.trimToNull(searchCriteria.getStatusCode()));
 		searchCriteria.setTransactionType(StringUtils.trimToNull(searchCriteria.getTransactionType()));
-		searchCriteria.setTransactionDateTime(searchCriteria.getTransactionDateTime());
 		searchCriteria.setSegment(StringUtils.trimToNull(searchCriteria.getSegment()));
+		searchCriteria.setTransactionStartDateTime(getTimeWithOneSecondLess(searchCriteria.getTransactionStartDateTime()));
 		return searchCriteria;
 	}
 	
+	private Date getTimeWithOneSecondLess(Date transactionStartTime){
+		if(transactionStartTime==null)
+			return null;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(transactionStartTime);
+		cal.add(Calendar.SECOND, -1);
+		return cal.getTime();
+	}
+	
+	
+	
 	private boolean checkSearchCriteriaIsEmpty(SearchBean searchCriteria){
 	 return StringUtils.trimToNull(searchCriteria.getApplicationName())==null && StringUtils.trimToNull(searchCriteria.getUniqueProcessId())==null &&
-			StringUtils.trimToNull(searchCriteria.getStatusCode())==null && StringUtils.trimToNull(searchCriteria.getTransactionType())==null && 
-			StringUtils.trimToNull(searchCriteria.getSegment())==null && searchCriteria.getTransactionDateTime() == null;
+			StringUtils.trimToNull(searchCriteria.getTransactionType())==null && 
+			StringUtils.trimToNull(searchCriteria.getSegment())==null && searchCriteria.getTransactionStartDateTime() == null  && searchCriteria.getTransactionEndDateTime() == null;
 	}
 	
 	
