@@ -29,7 +29,10 @@ public class Users implements Serializable{
 	private int id;
 	private String username;
 	private String password;
-	private boolean enabled;
+	private String domain;
+	private boolean active;
+	private boolean deleted;
+	private boolean admin;
 	private String createdBy;
 	private java.util.Date creationTime;
 	private String lastModifiedBy;
@@ -62,16 +65,16 @@ public class Users implements Serializable{
 		this.password = password;
 	}
 	
-	@Column(name="enabled", columnDefinition="NUMBER(1)") 
+	@Column(name="active", columnDefinition="NUMBER(1)") 
 	@Type(type="org.hibernate.type.NumericBooleanType")
-	public boolean isEnabled() {
-		return enabled;
-	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public boolean isActive() {
+		return active;
 	}
 	public void setCreationTime(java.util.Date creationTime) {
 		this.creationTime = creationTime;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
@@ -103,7 +106,7 @@ public class Users implements Serializable{
 	}
 
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "UserToRole" , joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id" )},
 	inverseJoinColumns=
 			{@JoinColumn (name = "userRoleId", referencedColumnName = "id" ) } )
@@ -113,7 +116,35 @@ public class Users implements Serializable{
 	
 	public void setUserRoles(Set<Role> userRoles) {
 		this.userRoles = userRoles;
-	}	
+	}
+	@Column(name="domain",nullable=false)
+	public String getDomain() {
+		return domain;
+	}
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+	@Column(name="admin", columnDefinition="NUMBER(1)") 
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isAdmin() {
+		return admin;
+	}
+	
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+	
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	@Column(name="deleted", columnDefinition="NUMBER(1)") 
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isDeleted() {
+		return deleted;
+	}
+	
+	
+	
 	
 }
 

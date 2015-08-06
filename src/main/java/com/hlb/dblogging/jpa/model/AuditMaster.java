@@ -43,8 +43,10 @@ public class AuditMaster implements Serializable {
 	private String CreatedBy;
 	private String UpdatedBy;
 	private String Segment;
+	private String applicationTransactionId;
 	private String CustomString2;
 	private String CustomString1;
+	private String CustomString3;
 	private int CustomInt1;
 	private int CustomInt2;
 	private int CustomInt3;
@@ -278,7 +280,19 @@ public class AuditMaster implements Serializable {
 	public void setRequestDateTime(Date requestDateTime) {
 		RequestDateTime = requestDateTime;
 	}
-	
-	
+	@Column(name="APPLTRANSID", nullable=true)
+	public String getApplicationTransactionId() {
+		return applicationTransactionId;
+	}
+	public void setApplicationTransactionId(String applicationTransactionId) {
+		this.applicationTransactionId = applicationTransactionId;
+	}
+	@Column(name="CUSTOMSTRING3", nullable=true)
+	public String getCustomString3() {
+		return CustomString3;
+	}
+	public void setCustomString3(String customString3) {
+		CustomString3 = customString3;
+	}
 	
 }

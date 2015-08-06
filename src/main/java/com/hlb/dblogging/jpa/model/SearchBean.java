@@ -9,6 +9,9 @@ public class SearchBean {
 		private Date transactionStartDateTime;
 		private Date transactionEndDateTime;
 		private String Segment;
+		private String messageFormat;
+		private String journalSequence;
+		private String applicationTransactionId;
 		
 		
 		public String getApplicationName() {
@@ -47,6 +50,24 @@ public class SearchBean {
 		}
 		public void setTransactionEndDateTime(Date transactionEndDateTime) {
 			this.transactionEndDateTime = transactionEndDateTime;
+		}
+		public String getMessageFormat() {
+			return messageFormat;
+		}
+		public void setMessageFormat(String messageFormat) {
+			this.messageFormat = messageFormat;
+		}
+		public String getJournalSequence() {
+			return journalSequence;
+		}
+		public void setJournalSequence(String journalSequence) {
+			this.journalSequence = journalSequence;
+		}
+		public String getApplicationTransactionId() {
+			return applicationTransactionId;
+		}
+		public void setApplicationTransactionId(String applicationTransactionId) {
+			this.applicationTransactionId = applicationTransactionId;
 		}
 		@Override
 		public String toString() {

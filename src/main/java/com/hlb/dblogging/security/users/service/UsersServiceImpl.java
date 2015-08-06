@@ -43,14 +43,15 @@ public class UsersServiceImpl implements UsersService {
 		 Users usersToBeCreated;
 		 
 		 usersToBeCreated =	usersRepository.findByUsername(users.getUsername());
-		 if(usersToBeCreated!=null && usersToBeCreated.isEnabled()){
+		 // add to if clause && usersToBeCreated.isEnabled()
+		 if(usersToBeCreated!=null ){
 			 throw new DataIntegrityViolationException("User already exists"); 
 		 }else{
 		 usersToBeCreated =	usersRepository.findPreviouslyExistingUser(users.getUsername());
 		 if(usersToBeCreated!=null){
 			 
 			 ApplLogger.getLogger().info("Existing user, updating user only..");
-			 usersToBeCreated.setEnabled(true);
+			 //usersToBeCreated.setEnabled(true);
 			 usersToBeCreated.setLastModifiedBy("admin");
 			 usersToBeCreated.setLastModifiedTime(new Date());
 			 usersRepository.save(usersToBeCreated);

@@ -10,7 +10,7 @@ import com.hlb.dblogging.jpa.model.Users;
 
 public interface UsersRepository extends CrudRepository<Users, Integer>{
 
-	/*@Query("select u from Users u where enabled = ?")
+	/*@Query("select u from Users u where deleted = ?")
 	 List<Users> findByIsEnabled(boolean isEnabled);
 	
 	@Query("select u from Users u where id = ?")
@@ -18,23 +18,23 @@ public interface UsersRepository extends CrudRepository<Users, Integer>{
 	
 
 	*/
-	@Query("select u from Users u where username=? and enabled=1")
+	@Query("select u from Users u where username=? and deleted=0")
 	Users findByUsername(String username);
 	
-	@Query("select u from Users u where username=? and enabled=0")
+	@Query("select u from Users u where username=? and deleted=1")
 	Users findPreviouslyExistingUser(String username);
 	
-	@Query("select u  from Users u where enabled=1")
+	@Query("select u  from Users u where deleted=0")
 	List<Users> findListofUsers();
 	
-	@Query("select username from Users u where username like ? and enabled=1")
+	@Query("select username from Users u where username like ? and deleted=0")
 	List<String> findUserList(String username);
 	
-	@Query("select count(*) from Users where username=? and enabled=1")
+	@Query("select count(*) from Users where username=? and deleted=0")
 	int findUsernameExists(String username);
 		
 	
 	@Modifying  
-	@Query("update Users u set enabled=0 where username=?")
+	@Query("update Users u set deleted=0 where username=?")
 	int deleteUser(String username);
 }
