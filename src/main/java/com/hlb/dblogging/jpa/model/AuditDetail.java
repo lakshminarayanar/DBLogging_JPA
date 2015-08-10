@@ -22,8 +22,8 @@ public class AuditDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String UniqueProcessID;
 	private String MessageID;
-	private String Content;
 	@Lob
+	private String Content;
 	private String MessageType;
 	private Date CreatedDateTime;
 	private Date UpdatedDateTime;

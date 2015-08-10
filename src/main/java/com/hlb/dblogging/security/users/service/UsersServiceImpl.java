@@ -63,6 +63,8 @@ public class UsersServiceImpl implements UsersService {
 		 }
 		 }
 		}catch(Exception e){
+			if(e instanceof DataIntegrityViolationException)
+				throw new DataIntegrityViolationException(e.getMessage());
 			throw e;
 		}
 	}

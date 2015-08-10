@@ -32,7 +32,6 @@ public class Users implements Serializable{
 	private String domain;
 	private boolean active;
 	private boolean deleted;
-	private boolean admin;
 	private String createdBy;
 	private java.util.Date creationTime;
 	private String lastModifiedBy;
@@ -124,15 +123,7 @@ public class Users implements Serializable{
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
-	@Column(name="admin", columnDefinition="NUMBER(1)") 
-	@Type(type="org.hibernate.type.NumericBooleanType")
-	public boolean isAdmin() {
-		return admin;
-	}
 	
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
 	
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
