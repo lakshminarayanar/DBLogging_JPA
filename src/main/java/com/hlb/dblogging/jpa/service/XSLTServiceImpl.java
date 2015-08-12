@@ -97,4 +97,14 @@ public class XSLTServiceImpl implements XSLTService{
 		return Boolean.FALSE;
 	}
 
+	@Override
+	public List<XSLT> getAllActiveAndNotDeleted(String mode) {
+		try{
+			return xsltRepository.findAllActiveAndNotDeleted(mode);
+			}catch(Exception e){
+				ApplLogger.getLogger().error("Error caught while getting all the xlsts from database ", e);
+				throw new RuntimeException(e.getMessage());
+			}
+	}
+
 }

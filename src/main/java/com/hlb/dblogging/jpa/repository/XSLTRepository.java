@@ -17,6 +17,9 @@ public interface XSLTRepository extends CrudRepository<XSLT, Integer>{
 	
 	@Query("select r from XSLT r where deleted = 0")
 	 List<XSLT> findAllInSet();
+	
+	@Query("select r from XSLT r where viewOrSave= ? and deleted = 0 and enabled = 1")
+	 List<XSLT> findAllActiveAndNotDeleted(String mode);
 
 	@Query("select r from XSLT r where name = 'DEFAULT'")
 	 List<XSLT> findByDefaultXSLT(int x);

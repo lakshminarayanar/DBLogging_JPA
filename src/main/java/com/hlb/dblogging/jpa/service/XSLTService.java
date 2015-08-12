@@ -10,5 +10,6 @@ public interface XSLTService {
 	Boolean createNewXSLT(XSLT newXSLT);
 	Boolean updateXSLT(XSLT xslt);
 	Boolean deleteXSLT(XSLT xslt); 
+	List<XSLT> getAllActiveAndNotDeleted(String mode);
 
 }

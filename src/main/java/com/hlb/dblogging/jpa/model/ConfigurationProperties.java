@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name="ConfigurationProperties")
 public class ConfigurationProperties {
@@ -16,7 +18,12 @@ public class ConfigurationProperties {
 	private String logLevel;
 	private String retryPath;
 	@Lob
-	private String xslTransformer;
+	private String viewXslTransformer;
+	@Lob
+	private String saveXslTransformer;
+	
+	private boolean viewEnabled;
+	private boolean saveEnabled;
 	
 	@Id
 	@GeneratedValue
@@ -52,17 +59,47 @@ public class ConfigurationProperties {
 		this.retryPath = retryPath;
 	}
 
-	@Column(name="XSLTRANSFORMER", nullable=true)
-	public String getXslTransformer() {
-		return xslTransformer;
+	@Column(name="VIEWXSLTRANSFORMER", nullable=true)
+	public String getViewXslTransformer() {
+		return viewXslTransformer;
 	}
 
-	public void setXslTransformer(String xslTransformer) {
-		this.xslTransformer = xslTransformer;
+	public void setViewXslTransformer(String viewXslTransformer) {
+		this.viewXslTransformer = viewXslTransformer;
+	}
+
+	@Column(name="SAVEXSLTRANSFORMER", nullable=true)
+	public String getSaveXslTransformer() {
+		return saveXslTransformer;
+	}
+
+	public void setSaveXslTransformer(String saveXslTransformer) {
+		this.saveXslTransformer = saveXslTransformer;
 	}
 
 	public ConfigurationProperties() {
 		super();
+	}
+	
+	
+	@Column(name="viewEnabled", columnDefinition="NUMBER(1)") 
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isViewEnabled() {
+		return viewEnabled;
+	}
+
+	public void setViewEnabled(boolean viewEnabled) {
+		this.viewEnabled = viewEnabled;
+	}
+
+	@Column(name="saveEnabled", columnDefinition="NUMBER(1)") 
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isSaveEnabled() {
+		return saveEnabled;
+	}
+
+	public void setSaveEnabled(boolean saveEnabled) {
+		this.saveEnabled = saveEnabled;
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class ConfigurationPropertiesServiceImpl implements	ConfigurationProperti
 		try{
 		ConfigurationProperties configpropToBeUpdated = configurationRepo.findConfigurationPropertiesOfApplication();
 		if(configpropToBeUpdated != null){
-			configpropToBeUpdated.setXslTransformer(newXSLT);
+			configpropToBeUpdated.setViewXslTransformer(newXSLT);
 			configurationRepo.save(configpropToBeUpdated);
 			ApplLogger.getLogger().info("New XSLT updated succesfully on :"+new Date());
 		}
@@ -52,5 +52,25 @@ public class ConfigurationPropertiesServiceImpl implements	ConfigurationProperti
 		}
 		return null;
 	}
+	
+	@Override
+	public Boolean  updateXSLTSettings(Boolean xsltView, Boolean xsltSave){
+		try{
+		ConfigurationProperties configpropToBeUpdated = configurationRepo.findConfigurationPropertiesOfApplication();
+		if(configpropToBeUpdated != null){
+			configpropToBeUpdated.setViewEnabled(xsltView);
+			configpropToBeUpdated.setSaveEnabled(xsltSave);
+			configurationRepo.save(configpropToBeUpdated);
+			ApplLogger.getLogger().info("Global updating  XSLT Settings done"+new Date());
+			return Boolean.TRUE;
+		}
+		}catch(Exception e){
+			ApplLogger.getLogger().error("Error caught while updating  XSLT Settings ",e);
+		}
+		return Boolean.FALSE;
+	}
+
+	
+	
 
 	}

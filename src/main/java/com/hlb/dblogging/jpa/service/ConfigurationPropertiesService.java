@@ -8,4 +8,5 @@ public interface ConfigurationPropertiesService {
 	String updateLoglevl(String logLevel);
 	String updateNewXSLTFile(String newXSLT);
 	ConfigurationProperties getApplicationConfiguration();
+	Boolean  updateXSLTSettings(Boolean xsltView, Boolean xsltSave);
 }

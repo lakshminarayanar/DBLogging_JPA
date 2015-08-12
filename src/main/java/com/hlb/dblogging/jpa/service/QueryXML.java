@@ -65,9 +65,16 @@ public class QueryXML {
 						Object nodevalue = node.getTextContent();
 						targetAuditMasterMapper(nodename, aMaster, nodevalue);
 						targetAuditDetailMapper(nodename, aDetail, nodevalue);
-
 					}
 				}
+			}
+			if("XML".equalsIgnoreCase(aMaster.getMessageFormat())){
+				if(aDetail.getContent().contains("SC_ApplTransID")){
+					String applTransId =	aDetail.getContent().substring(aDetail.getContent().indexOf("<SC_ApplTransID>")+"<SC_ApplTransID>".length(), aDetail.getContent().indexOf("</SC_ApplTransID>"));
+					ApplLogger.getLogger().info("Application Transaction ID for the processing message is : "+applTransId);
+					aMaster.setApplicationTransactionId(applTransId.trim());
+				}
+				
 			}
 		}
 
@@ -255,6 +262,36 @@ public boolean checkWhetherContentIsXml(ByteArrayInputStream inputStream){
 	}
 	return false;
 }
+
+
+public String getValueByTagName(InputStream inputStream,String tagName){
+	try {
+		// standard for reading an XML file
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder;
+		Document doc = null;
+		// XPathExpression expr = null;
+		builder = factory.newDocumentBuilder();
+		// FileInputStream in=null;
+
+		doc = builder.parse(inputStream);
+		ApplLogger.getLogger().info("Parsing the formatted XML and finding the value of "+tagName);
+		XPathExpression xPathExpression = XPathFactory.newInstance().newXPath().compile(tagName);
+		NodeList nodes = (NodeList) xPathExpression.evaluate(doc,XPathConstants.NODESET);
+		Node  node =	nodes.item(0);
+		if(node!=null && node.getTextContent()!=null && !node.getTextContent().isEmpty() ){
+			ApplLogger.getLogger().info(tagName+" property value from the message is  : "+node.getTextContent());
+			return node.getTextContent().trim();
+		}
+	}catch (Exception e) {
+		ApplLogger.getLogger().error("Error while mapping the xml data to find "+tagName+"  of message: ",e);
+	}
+	return null;
+}
+
+
+
 
 
 public String getLogLevelMessage(InputStream inputStream){

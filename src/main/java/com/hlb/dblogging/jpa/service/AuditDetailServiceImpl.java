@@ -1,14 +1,22 @@
 package com.hlb.dblogging.jpa.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +28,7 @@ import com.hlb.dblogging.jpa.model.AuditDetail;
 import com.hlb.dblogging.jpa.repository.AuditDetailRepository;
 import com.hlb.dblogging.log.utility.ApplLogger;
 import com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility;
+import com.hlb.dblogging.xml.utility.XSLTransformer;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
@@ -45,16 +54,40 @@ public class AuditDetailServiceImpl implements AuditDetailService{
 	}
 
 	@Override
-	public String getMessageContentFormatted(String messageFormat,String uniqueProcessID) {
-			String content =	aDetailRepository.findMessageContentByAuditDetailID(Long.parseLong(uniqueProcessID));
+	public String getMessageContentFormatted(String messageFormat,String auditMasterId,String transType) {
+			String content =	aDetailRepository.findMessageContentByAuditDetailID(Long.parseLong(auditMasterId));
 		 if("XML".equalsIgnoreCase(messageFormat)){
-	        	// Fetch the Content from AuditDetail table with uniqueprocessId and display in dialog
+	        	// Fetch the Content from AuditDetail table with uniqueprocessId and check conditions to apply XSLT while viewing
+			 if(XSLTransformer.isViewEnabled){
+				 // Global XSLT is enabled, so should apply masking on viewing
+				 try{
+					 ByteArrayOutputStream outputXML = new ByteArrayOutputStream();
+					 Source xslt = null;
+					 if(XSLTransformer.xsltMap.get(transType)!=null)
+						 xslt = new StreamSource(new ByteArrayInputStream(XSLTransformer.xsltMap.get(transType).getBytes(StandardCharsets.UTF_8)));
+					 else
+						 xslt = new StreamSource(new ByteArrayInputStream(XSLTransformer.xsltMap.get("ALL").getBytes(StandardCharsets.UTF_8)));
+					TransformerFactory factory = TransformerFactory.newInstance();
+					Source xmlInput = new StreamSource(new ByteArrayInputStream(content.getBytes()));
+					Transformer transformer = factory.newTransformer(xslt);
+					transformer.transform(xmlInput,	new StreamResult(outputXML));
+					content =  new String(outputXML.toByteArray(),StandardCharsets.UTF_8);
+				 }catch(Exception e){
+					 e.printStackTrace();
+					 return "Can't display content now, Error caught while applying XSLT on the message";
+				 }
+			 }
 			 	return format(content);
 	        }else{
 	        	// Fetch the Content from AuditDetail table with uniqueprocessId convert to ASCII Format and display in dialog
 	        	content =	hexToCharacter(content);
 	        	return	new EbcdicToAsciiConvertUtility().convert(content);
 	        }
+	}
+	
+	@Override
+	public String getMessageContentInRawFormat(String messageFormat,String uniqueProcessID) {
+			return 	aDetailRepository.findMessageContentByAuditDetailID(Long.parseLong(uniqueProcessID));
 	}
 	
 	
