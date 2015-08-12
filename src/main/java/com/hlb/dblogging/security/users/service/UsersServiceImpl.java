@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hlb.dblogging.exception.utility.BSLException;
 import com.hlb.dblogging.jpa.model.AccessRights;
 import com.hlb.dblogging.jpa.model.Role;
 import com.hlb.dblogging.jpa.model.UserToAccessRights;
@@ -126,7 +127,7 @@ public class UsersServiceImpl implements UsersService {
 			}
 		}
 		
-		List<UserToAccessRights> userToAccessRightList = userToAccessRightsRepository.findByUserId(user.getId());
+/*		List<UserToAccessRights> userToAccessRightList = userToAccessRightsRepository.findByUserId(user.getId());
 		Iterator<UserToAccessRights> userToAccessRightIterator = userToAccessRightList.iterator();
 		while(userToAccessRightIterator.hasNext()) {
 			UserToAccessRights currentUserToAccessRights = userToAccessRightIterator.next();
@@ -142,7 +143,7 @@ public class UsersServiceImpl implements UsersService {
 				accessRightsSet.add(currentAccessRights.getAccessRights());
 			} 
 		}
-		}
+		}*/
 		return accessRightsSet;
 	}
 
@@ -172,6 +173,9 @@ public class UsersServiceImpl implements UsersService {
 		usersToBeUpdated.setPassword(users.getPassword());
 		usersToBeUpdated.setLastModifiedBy(users.getUsername());
 		usersToBeUpdated.setLastModifiedTime(new Date());
+		Set<Role> roleSet = new HashSet<Role>();
+		roleSet.addAll(users.getUserRoles());
+		usersToBeUpdated.setUserRoles(roleSet);
 		usersRepository.save(usersToBeUpdated);		
 		return usersToBeUpdated;
 	}
@@ -186,5 +190,23 @@ public class UsersServiceImpl implements UsersService {
 		return usersRepository.deleteUser(username);
 	}
 
+	@Transactional
+	@Override
+	public Users delete(int id) {
+		try{
+			Users users = usersRepository.findOne(id);
+				
+			if(users != null){			
+			users.setDeleted(true);
+			HashSet<Role> roleSet = new HashSet<Role>();
+			users.setUserRoles(roleSet);
+			usersRepository.save(users);
+		}	
+		 return users;
+		}catch(Exception e) {
+			
+			throw new BSLException();
+		}
+	}
 	 
 }

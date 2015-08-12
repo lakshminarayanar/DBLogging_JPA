@@ -116,7 +116,7 @@ public class Role implements Serializable{
 	
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "RoleToAccessRights" , joinColumns = { @JoinColumn(name = "roleId", referencedColumnName = "id" )},
 	inverseJoinColumns=
 			{@JoinColumn (name = "accessRightsId", referencedColumnName = "id" ) } )
