@@ -89,6 +89,9 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 		searchCriteria.setUniqueProcessId((StringUtils.trimToNull(searchCriteria.getUniqueProcessId())));
 		searchCriteria.setTransactionType(StringUtils.trimToNull(searchCriteria.getTransactionType()));
 		searchCriteria.setSegment(StringUtils.trimToNull(searchCriteria.getSegment()));
+		searchCriteria.setMessageFormat(StringUtils.trimToNull(searchCriteria.getMessageFormat()));
+		searchCriteria.setJournalSequence(StringUtils.trimToNull(searchCriteria.getJournalSequence()));
+		searchCriteria.setApplicationTransactionId(StringUtils.trimToNull(searchCriteria.getApplicationTransactionId()));
 		searchCriteria.setTransactionStartDateTime(getTimeWithOneSecondLess(searchCriteria.getTransactionStartDateTime()));
 		return searchCriteria;
 	}
@@ -106,7 +109,8 @@ public class AuditMasterServiceImpl implements AuditMasterService{
 	
 	private boolean checkSearchCriteriaIsEmpty(SearchBean searchCriteria){
 	 return StringUtils.trimToNull(searchCriteria.getApplicationName())==null && StringUtils.trimToNull(searchCriteria.getUniqueProcessId())==null &&
-			StringUtils.trimToNull(searchCriteria.getTransactionType())==null && 
+			StringUtils.trimToNull(searchCriteria.getTransactionType())==null && StringUtils.trimToNull(searchCriteria.getMessageFormat())==null &&
+			StringUtils.trimToNull(searchCriteria.getJournalSequence())==null && StringUtils.trimToNull(searchCriteria.getApplicationTransactionId())==null &&
 			StringUtils.trimToNull(searchCriteria.getSegment())==null && searchCriteria.getTransactionStartDateTime() == null  && searchCriteria.getTransactionEndDateTime() == null;
 	}
 	
