@@ -171,6 +171,7 @@ public class UsersServiceImpl implements UsersService {
 			 throw new RuntimeException("Username not found");
 		usersToBeUpdated.setUsername(users.getUsername());
 		usersToBeUpdated.setPassword(users.getPassword());
+		usersToBeUpdated.setActive(users.isActive());
 		usersToBeUpdated.setLastModifiedBy(users.getUsername());
 		usersToBeUpdated.setLastModifiedTime(new Date());
 		Set<Role> roleSet = new HashSet<Role>();
