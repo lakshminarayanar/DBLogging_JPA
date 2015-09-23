@@ -17,6 +17,12 @@ public class XSLTransformer {
 	public static Boolean isViewEnabled;
 	public static Boolean isSaveEnabled;
 	public static Map<String,String> xsltMap = new HashMap<>();
+	public static String ldapUsername;
+	public static String ldapPassword;
+	public static String ldapUrl;
+	public static String ldapDomain;
+	public static String ldapSearchFilter;
+	public static String rc4Key;
 	
 	/*public XSLTransformer() {
 		try{
