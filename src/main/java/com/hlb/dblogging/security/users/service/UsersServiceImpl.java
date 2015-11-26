@@ -172,7 +172,7 @@ public class UsersServiceImpl implements UsersService {
 		usersToBeUpdated.setUsername(users.getUsername());
 		usersToBeUpdated.setPassword(users.getPassword());
 		usersToBeUpdated.setActive(users.isActive());
-		usersToBeUpdated.setLastModifiedBy(users.getUsername());
+		usersToBeUpdated.setLastModifiedBy(users.getLastModifiedBy());
 		usersToBeUpdated.setLastModifiedTime(new Date());
 		Set<Role> roleSet = new HashSet<Role>();
 		roleSet.addAll(users.getUserRoles());

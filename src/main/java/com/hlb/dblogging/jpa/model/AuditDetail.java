@@ -38,35 +38,35 @@ public class AuditDetail implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@Column(name="UNIQUEPROCESSID", nullable=false)
+	@Column(name="UNIQUEPROCESSID", nullable=false, length=15)
 	public String getUniqueProcessID() {
 		return UniqueProcessID;
 	}
 	public void setUniqueProcessID(String uniqueProcessID) {
 		UniqueProcessID = uniqueProcessID;
 	}
-	@Column(name="MESSAGEID", nullable=false)
+	@Column(name="MESSAGEID", nullable=false, length=25)
 	public String getMessageID() {
 		return MessageID;
 	}
 	public void setMessageID(String messageID) {
 		MessageID = messageID;
 	}
-	@Column(name="CONTENT", nullable=false)
+	@Column(name="CONTENT", nullable=true)
 	public String getContent() {
 		return Content;
 	}
 	public void setContent(String content) {
 		Content = content;
 	}
-	@Column(name="MESSAGETYPE", nullable=true)
+	@Column(name="MESSAGETYPE", nullable=true, length=15)
 	public String getMessageType() {
 		return MessageType;
 	}
 	public void setMessageType(String messageType) {
 		MessageType = messageType;
 	}
-	@Column(name="CREATEDDATETIME", nullable=false)
+	@Column(name="CREATEDDATETIME", nullable=true)
 	public Date getCreatedDateTime() {
 		return CreatedDateTime;
 	}
@@ -81,7 +81,7 @@ public class AuditDetail implements Serializable {
 		UpdatedDateTime = updatedDateTime;
 	}
 	
-	@Column(name="AUDITMASTERID", nullable=false)	
+	@Column(name="AUDITMASTERID", nullable=false, length=10)	
 	public long getAuditMasterId() {
 		return auditMasterId;
 	}

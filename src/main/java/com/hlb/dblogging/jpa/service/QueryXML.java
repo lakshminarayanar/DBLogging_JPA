@@ -89,17 +89,17 @@ public class QueryXML {
   
   private void targetAuditDetailMapper(String nodename, AuditDetail aDetail,Object value) {
 	  
-	  switch(nodename){
+	  switch(nodename.toUpperCase()){
 	  
-	  case "UniqueProcessID":aDetail.setUniqueProcessID(value.toString());
+	  case "UNIQUEPROCESSID":aDetail.setUniqueProcessID(value.toString());
 	  break;
-	  case "MessageID":aDetail.setMessageID(value.toString());
+	  case "MESSAGEID":aDetail.setMessageID(value.toString());
 	  break;
-	  case "Content":aDetail.setContent(value.toString());
+	  case "CONTENT":aDetail.setContent(value.toString());
 	  break;
-	  case "MessageType":aDetail.setMessageType(value.toString());
+	  case "MESSAGETYPE":aDetail.setMessageType(value.toString());
 	  break;
-	  case "CreatedDateTime":{ DateFormat df = new SimpleDateFormat("yyMMdd");
+	  case "CREATEDDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
 							   try {
 								Date createdDate = df.parse((String) value);
 								aDetail.setCreatedDateTime(createdDate);
@@ -108,7 +108,7 @@ public class QueryXML {
 							   }
 							}
 	  break;
-	  case "UpdatedDateTime":{ DateFormat df = new SimpleDateFormat("yyMMdd");
+	  case "UPDATEDDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
 							   try {
 								Date updatedDate = df.parse((String) value);
 								aDetail.setUpdatedDateTime(updatedDate);
@@ -125,38 +125,41 @@ public class QueryXML {
 
 private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object value) {
   	
-	switch(nodeName){  
-  	case "LogInterface":aMaster.setLogInterface(value.toString());
+	switch(nodeName.toUpperCase()){  
+  	case "LOGINTERFACE":aMaster.setLogInterface(value.toString());
 	break;
-  	case "MessageFormat":aMaster.setMessageFormat(value.toString());
+  	case "MESSAGEFORMAT":aMaster.setMessageFormat(value.toString());
 	break;
-  	case "Host":aMaster.setHost(value.toString());
+  	case "HOST":aMaster.setHost(value.toString());
 	break;
-  	case "TransType":aMaster.setTransType(value.toString());
+  	case "TRANSTYPE":{
+  		System.out.println("Matched Yes TRANSTYPE");
+  		aMaster.setTransType(value.toString());
+  	}
 	break;
-  	case "MessageID":aMaster.setMessageID(value.toString());
+  	case "MESSAGEID":aMaster.setMessageID(value.toString());
 	break;
-  	case "ServiceID":aMaster.setServiceID(value.toString());
+  	case "SERVICEID":aMaster.setServiceID(value.toString());
 	break;
-  	case "ApplName":aMaster.setApplName(value.toString());
+  	case "APPLNAME":aMaster.setApplName(value.toString());
 	break;
-  	case "ApplID":aMaster.setAppID(value.toString());
+  	case "APPLID":aMaster.setAppID(value.toString());
 	break;
-  	case "UniqueProcessID":aMaster.setUniqueProcessID(value.toString());
+  	case "UNIQUEPROCESSID":aMaster.setUniqueProcessID(value.toString());
 	break;
-  	case "JournalSeq":aMaster.setJournalSeq(Integer.valueOf(value.toString()));
+  	case "JOURNALSEQ":aMaster.setJournalSeq(Integer.valueOf(value.toString()));
 	break;
-  	case "LogLevel":aMaster.setLogLevel(value.toString());
+  	case "LOGLEVEL":aMaster.setLogLevel(value.toString());
 	break;
-  	case "StatusCode":aMaster.setStatusCode(value.toString());
+  	case "STATUSCODE":aMaster.setStatusCode(value.toString());
 	break;
-  	case "ErrorCode":aMaster.setErrorCode(value.toString());
+  	case "ERRORCODE":aMaster.setErrorCode(value.toString());
 	break;
-  	case "ErrorMessage":aMaster.setErrorMessage(value.toString());
+  	case "ERRORMESSAGE":aMaster.setErrorMessage(value.toString());
 	break;
-  	case "ReasonCode":aMaster.setReasonCode(value.toString());
+  	case "REASONCODE":aMaster.setReasonCode(value.toString());
 	break;
-  	case "TransDateTime":{ DateFormat df = new SimpleDateFormat("yyMMdd");
+  	case "TRANSDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
   						   try {
 							Date startDate = df.parse((String) value);
 							aMaster.setTransDateTime(startDate);
@@ -165,7 +168,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
   						   }
   						}
 	break;
-  	case "UpdatedDateTime":{ DateFormat df = new SimpleDateFormat("yyMMdd");
+  	case "UPDATEDDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
 						   try {
 							Date updatedDate = df.parse((String) value);
 							aMaster.setUpdatedDateTime(updatedDate);
@@ -174,7 +177,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 						   }
 						}
 	break;
-  	case "CreatedDateTime":{ DateFormat df = new SimpleDateFormat("yyMMdd");
+  	case "CREATEDDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
 						   try {
 							Date createdDate = df.parse((String) value);
 							aMaster.setCreatedDateTime(createdDate);
@@ -183,7 +186,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 						   }
 						}
 	break;
-  	case "ReqDateTime":{ DateFormat df = new SimpleDateFormat("ddMMyyyy HH:mm:ss");
+  	case "REQUESTDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
 						   try {
 							Date requestDate = df.parse((String) value);
 							aMaster.setRequestDateTime(requestDate);
@@ -192,25 +195,25 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 						   }
 						}
   	break;
-  	case "CreatedBy":aMaster.setCreatedBy(value.toString());
+  	case "CREATEDBY":aMaster.setCreatedBy(value.toString());
 	break;
-  	case "UpdatedBy":aMaster.setUpdatedBy(value.toString());
+  	case "UPDATEDBY":aMaster.setUpdatedBy(value.toString());
 	break;
-  	case "CustomString1":aMaster.setCustomString1(value.toString());
+  	case "CUSTOMSTRING1":aMaster.setCustomString1(value.toString());
 	break;
-  	case "CustomString2":aMaster.setCustomString2(value.toString());
+  	case "CUSTOMSTRING2":aMaster.setCustomString2(value.toString());
 	break;
-  	case "Segment":aMaster.setSegment(value.toString());
+  	case "SEGMENT":aMaster.setSegment(value.toString());
 	break;
-  	case "CustomInt1":aMaster.setCustomInt1(Integer.valueOf(value.toString()));
+  	case "CUSTOMINT1":aMaster.setCustomInt1(Integer.valueOf(value.toString()));
 	break;
-	case "CustomInt2":aMaster.setCustomInt2(Integer.valueOf(value.toString()));
+	case "CUSTOMINT2":aMaster.setCustomInt2(Integer.valueOf(value.toString()));
 	break;
-	case "CustomInt3":aMaster.setCustomInt3(Integer.valueOf(value.toString()));
+	case "CUSTOMINT3":aMaster.setCustomInt3(Integer.valueOf(value.toString()));
 	break;
-	case "CustomDate1":aMaster.setCustomDate1((Date)value);
+	case "CUSTOMDATE1":aMaster.setCustomDate1((Date)value);
 	break;
-	case "CustomDate2":aMaster.setCustomDate1((Date)value);
+	case "CUSTOMDATE2":aMaster.setCustomDate1((Date)value);
 	break;
 	
 	default:

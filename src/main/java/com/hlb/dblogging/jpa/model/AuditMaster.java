@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
@@ -62,7 +64,7 @@ public class AuditMaster implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	@Column(name="LogInterface", nullable=false)
+	@Column(name="LogInterface", nullable=true, length=255)
 	public String getLogInterface() {
 		return LogInterface;
 	}
@@ -70,7 +72,7 @@ public class AuditMaster implements Serializable {
 		LogInterface = logInterface;
 	}
 	
-	@Column(name="MESSAGEFORMAT", nullable=false)
+	@Column(name="MESSAGEFORMAT", nullable=false, length=10)
 	public String getMessageFormat() {
 		return MessageFormat;
 	}
@@ -78,7 +80,7 @@ public class AuditMaster implements Serializable {
 		MessageFormat = messageFormat;
 	}
 	
-	@Column(name="HOST", nullable=false)
+	@Column(name="HOST", nullable=false, length=30)
 	public String getHost() {
 		return Host;
 	}
@@ -87,7 +89,7 @@ public class AuditMaster implements Serializable {
 		Host = host;
 	}
 	
-	@Column(name="TRANSTYPE", nullable=false)
+	@Column(name="TRANSTYPE", nullable=false, length=10)
 	public String getTransType() {
 		return TransType;
 	}
@@ -95,7 +97,7 @@ public class AuditMaster implements Serializable {
 		TransType = transType;
 	}
 	
-	@Column(name="MESSAGEID", nullable=false)
+	@Column(name="MESSAGEID", nullable=true, length=25)
 	public String getMessageID() {
 		return MessageID;
 	}
@@ -103,7 +105,7 @@ public class AuditMaster implements Serializable {
 		MessageID = messageID;
 	}
 	
-	@Column(name="SERVICEID", nullable=false)
+	@Column(name="SERVICEID", nullable=true, length=6)
 	public String getServiceID() {
 		return ServiceID;
 	}
@@ -111,7 +113,7 @@ public class AuditMaster implements Serializable {
 		ServiceID = serviceID;
 	}
 
-	@Column(name="APPLNAME", nullable=false)
+	@Column(name="APPLNAME", nullable=true, length=6)
 	public String getApplName() {
 		return ApplName;
 	}
@@ -119,7 +121,7 @@ public class AuditMaster implements Serializable {
 		ApplName = applName;
 	}
 	
-	@Column(name="APPID", nullable=false)
+	@Column(name="APPID", nullable=false, length=6)
 	public String getAppID() {
 		return AppID;
 	}
@@ -127,7 +129,7 @@ public class AuditMaster implements Serializable {
 		AppID = appID;
 	}
 	
-	@Column(name="UNIQUEPROCESSID", nullable=false)
+	@Column(name="UNIQUEPROCESSID", nullable=false, length=15)
 	public String getUniqueProcessID() {
 		return UniqueProcessID;
 	}
@@ -135,7 +137,7 @@ public class AuditMaster implements Serializable {
 		UniqueProcessID = uniqueProcessID;
 	}
 	
-	@Column(name="JOURNALSEQ", nullable=false)
+	@Column(name="JOURNALSEQ", nullable=true, length=10)
 	public int getJournalSeq() {
 		return JournalSeq;
 	}
@@ -144,35 +146,35 @@ public class AuditMaster implements Serializable {
 	}
 	
 	
-	@Column(name="LOGLEVEL", nullable=false)
+	@Column(name="LOGLEVEL", nullable=false, length=8)
 	public String getLogLevel() {
 		return LogLevel;
 	}
 	public void setLogLevel(String logLevel) {
 		LogLevel = logLevel;
 	}
-	@Column(name="STATUSCODE", nullable=true)
+	@Column(name="STATUSCODE", nullable=true, length=1)
 	public String getStatusCode() {
 		return StatusCode;
 	}
 	public void setStatusCode(String statusCode) {
 		StatusCode = statusCode;
 	}
-	@Column(name="ERRORCODE", nullable=true)
+	@Column(name="ERRORCODE", nullable=true, length=5)
 	public String getErrorCode() {
 		return ErrorCode;
 	}
 	public void setErrorCode(String errorCode) {
 		ErrorCode = errorCode;
 	}
-	@Column(name="ERRORMESSAGE", nullable=true)
+	@Column(name="ERRORMESSAGE", nullable=true, length=250)
 	public String getErrorMessage() {
 		return ErrorMessage;
 	}
 	public void setErrorMessage(String errorMessage) {
 		ErrorMessage = errorMessage;
 	}
-	@Column(name="REASONCODE", nullable=true)
+	@Column(name="REASONCODE", nullable=true, length=5)
 	public String getReasonCode() {
 		return ReasonCode;
 	}
@@ -180,13 +182,15 @@ public class AuditMaster implements Serializable {
 		ReasonCode = reasonCode;
 	}
 	@Column(name="TRANSDATETIME", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getTransDateTime() {
 		return TransDateTime;
 	}
 	public void setTransDateTime(Date transDateTime) {
 		TransDateTime = transDateTime;
 	}
-	@Column(name="UPDATEDDATETIME", nullable=true)
+	@Column(name="UPDATEDDATETIME", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdatedDateTime() {
 		return UpdatedDateTime;
 	}
@@ -194,27 +198,28 @@ public class AuditMaster implements Serializable {
 		UpdatedDateTime = updatedDateTime;
 	}
 	@Column(name="CREATEDDATETIME", nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedDateTime() {
 		return CreatedDateTime;
 	}
 	public void setCreatedDateTime(Date createdDateTime) {
 		CreatedDateTime = createdDateTime;
 	}
-	@Column(name="CREATEDBY", nullable=false)
+	@Column(name="CREATEDBY", nullable=true, length=50)
 	public String getCreatedBy() {
 		return CreatedBy;
 	}
 	public void setCreatedBy(String createdBy) {
 		CreatedBy = createdBy;
 	}
-	@Column(name="UPDATEDBY", nullable=true)
+	@Column(name="UPDATEDBY", nullable=true, length=50)
 	public String getUpdatedBy() {
 		return UpdatedBy;
 	}
 	public void setUpdatedBy(String updatedBy) {
 		UpdatedBy = updatedBy;
 	}
-	@Column(name="SEGMENT", nullable=true)
+	@Column(name="SEGMENT", nullable=false, length=255)
 	public String getSegment() {
 		return Segment;
 	}
@@ -223,7 +228,7 @@ public class AuditMaster implements Serializable {
 	}
 	
 	
-	@Column(name="CUSTOMSTRING2", nullable=true)
+	@Column(name="CUSTOMSTRING2", nullable=true, length=50)
 	public String getCustomString2() {
 		return CustomString2;
 	}
@@ -231,28 +236,28 @@ public class AuditMaster implements Serializable {
 	public void setCustomString2(String customString2) {
 		CustomString2 = customString2;
 	}
-	@Column(name="CUSTOMSTRING1", nullable=true)
+	@Column(name="CUSTOMSTRING1", nullable=true, length=50)
 	public String getCustomString1() {
 		return CustomString1;
 	}
 	public void setCustomString1(String customString1) {
 		CustomString1 = customString1;
 	}
-	@Column(name="CUSTOMINT1", nullable=true)
+	@Column(name="CUSTOMINT1", nullable=true, length=20)
 	public int getCustomInt1() {
 		return CustomInt1;
 	}
 	public void setCustomInt1(int customInt1) {
 		CustomInt1 = customInt1;
 	}
-	@Column(name="CUSTOMINT2", nullable=true)
+	@Column(name="CUSTOMINT2", nullable=true, length=20)
 	public int getCustomInt2() {
 		return CustomInt2;
 	}
 	public void setCustomInt2(int customInt2) {
 		CustomInt2 = customInt2;
 	}
-	@Column(name="CUSTOMINT3", nullable=true)
+	@Column(name="CUSTOMINT3", nullable=true, length=20)
 	public int getCustomInt3() {
 		return CustomInt3;
 	}
@@ -274,25 +279,45 @@ public class AuditMaster implements Serializable {
 		CustomDate2 = customDate2;
 	}
 	@Column(name="REQUESTDATETIME", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getRequestDateTime() {
 		return RequestDateTime;
 	}
 	public void setRequestDateTime(Date requestDateTime) {
 		RequestDateTime = requestDateTime;
 	}
-	@Column(name="APPLTRANSID", nullable=true)
+	@Column(name="APPLTRANSID", nullable=false, length=255)
 	public String getApplicationTransactionId() {
 		return applicationTransactionId;
 	}
 	public void setApplicationTransactionId(String applicationTransactionId) {
 		this.applicationTransactionId = applicationTransactionId;
 	}
-	@Column(name="CUSTOMSTRING3", nullable=true)
+	@Column(name="CUSTOMSTRING3", nullable=true, length=50)
 	public String getCustomString3() {
 		return CustomString3;
 	}
 	public void setCustomString3(String customString3) {
 		CustomString3 = customString3;
 	}
+	@Override
+	public String toString() {
+		return "AuditMaster [LogInterface=" + LogInterface + ", MessageFormat="
+				+ MessageFormat + ", Host=" + Host + ", TransType=" + TransType
+				+ ", MessageID=" + MessageID + ", ServiceID=" + ServiceID
+				+ ", ApplName=" + ApplName + ", AppID=" + AppID
+				+ ", UniqueProcessID=" + UniqueProcessID + ", JournalSeq="
+				+ JournalSeq + ", LogLevel=" + LogLevel + ", StatusCode="
+				+ StatusCode + ", ErrorCode=" + ErrorCode + ", ErrorMessage="
+				+ ErrorMessage + ", ReasonCode=" + ReasonCode
+				+ ", TransDateTime=" + TransDateTime + ", UpdatedDateTime="
+				+ UpdatedDateTime + ", CreatedDateTime=" + CreatedDateTime
+				+ ", RequestDateTime=" + RequestDateTime + ", CreatedBy="
+				+ CreatedBy + ", UpdatedBy=" + UpdatedBy + ", Segment="
+				+ Segment + ", applicationTransactionId="
+				+ applicationTransactionId + "]";
+	}
+	
+	
 	
 }
