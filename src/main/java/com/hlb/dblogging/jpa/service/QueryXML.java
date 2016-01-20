@@ -33,6 +33,7 @@ import com.hlb.dblogging.log.utility.ApplLogger;
 
 public class QueryXML {
 	
+	@SuppressWarnings("rawtypes")
 	public List mappingXMLToPojo(InputStream xmlData) {
 
 		AuditMaster aMaster = new AuditMaster();
@@ -67,14 +68,6 @@ public class QueryXML {
 						targetAuditDetailMapper(nodename, aDetail, nodevalue);
 					}
 				}
-			}
-			if("XML".equalsIgnoreCase(aMaster.getMessageFormat())){
-				if(aDetail.getContent().contains("SC_ApplTransID")){
-					String applTransId =	aDetail.getContent().substring(aDetail.getContent().indexOf("<SC_ApplTransID>")+"<SC_ApplTransID>".length(), aDetail.getContent().indexOf("</SC_ApplTransID>"));
-					ApplLogger.getLogger().info("Application Transaction ID for the processing message is : "+applTransId);
-					aMaster.setApplicationTransactionId(applTransId.trim());
-				}
-				
 			}
 		}
 
@@ -127,38 +120,41 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
   	
 	switch(nodeName.toUpperCase()){  
   	case "LOGINTERFACE":aMaster.setLogInterface(value.toString());
-	break;
+  		break;
   	case "MESSAGEFORMAT":aMaster.setMessageFormat(value.toString());
-	break;
+  		break;
   	case "HOST":aMaster.setHost(value.toString());
-	break;
+  		break;
   	case "TRANSTYPE":{
-  		System.out.println("Matched Yes TRANSTYPE");
   		aMaster.setTransType(value.toString());
   	}
-	break;
+  		break;
   	case "MESSAGEID":aMaster.setMessageID(value.toString());
-	break;
+  		break;
   	case "SERVICEID":aMaster.setServiceID(value.toString());
-	break;
+  		break;
   	case "APPLNAME":aMaster.setApplName(value.toString());
-	break;
+  		break;
+	
   	case "APPLID":aMaster.setAppID(value.toString());
-	break;
+  		break;
+	
+  	case "APPLTRANSID": aMaster.setApplicationTransactionId(value.toString());
+  		break;
   	case "UNIQUEPROCESSID":aMaster.setUniqueProcessID(value.toString());
-	break;
+  		break;
   	case "JOURNALSEQ":aMaster.setJournalSeq(Integer.valueOf(value.toString()));
-	break;
+  		break;
   	case "LOGLEVEL":aMaster.setLogLevel(value.toString());
-	break;
+  		break;
   	case "STATUSCODE":aMaster.setStatusCode(value.toString());
-	break;
+  		break;
   	case "ERRORCODE":aMaster.setErrorCode(value.toString());
-	break;
+  		break;
   	case "ERRORMESSAGE":aMaster.setErrorMessage(value.toString());
-	break;
+  		break;
   	case "REASONCODE":aMaster.setReasonCode(value.toString());
-	break;
+  		break;
   	case "TRANSDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
   						   try {
 							Date startDate = df.parse((String) value);
@@ -167,7 +163,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 							ApplLogger.getLogger().error("Error while converting TransDateTime string date to util date",e);
   						   }
   						}
-	break;
+  		break;
   	case "UPDATEDDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
 						   try {
 							Date updatedDate = df.parse((String) value);
@@ -176,7 +172,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 							ApplLogger.getLogger().error("Error while converting UpdatedDateTime string date to util date",e);
 						   }
 						}
-	break;
+  		break;
   	case "CREATEDDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
 						   try {
 							Date createdDate = df.parse((String) value);
@@ -185,7 +181,7 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 							ApplLogger.getLogger().error("Error while converting CreatedDateTime string date to util date",e);
 						   }
 						}
-	break;
+  		break;
   	case "REQUESTDATETIME":{ DateFormat df = new SimpleDateFormat("yyyyMMdd hhmmss");
 						   try {
 							Date requestDate = df.parse((String) value);
@@ -194,27 +190,27 @@ private void targetAuditMasterMapper(String nodeName, AuditMaster aMaster,Object
 							ApplLogger.getLogger().error("Error while converting ReqDateTime string date to util date",e);
 						   }
 						}
-  	break;
+  		break;
   	case "CREATEDBY":aMaster.setCreatedBy(value.toString());
-	break;
+  		break;
   	case "UPDATEDBY":aMaster.setUpdatedBy(value.toString());
-	break;
+  		break;
   	case "CUSTOMSTRING1":aMaster.setCustomString1(value.toString());
-	break;
+  		break;
   	case "CUSTOMSTRING2":aMaster.setCustomString2(value.toString());
-	break;
+  		break;
   	case "SEGMENT":aMaster.setSegment(value.toString());
-	break;
+  		break;
   	case "CUSTOMINT1":aMaster.setCustomInt1(Integer.valueOf(value.toString()));
-	break;
+  		break;
 	case "CUSTOMINT2":aMaster.setCustomInt2(Integer.valueOf(value.toString()));
-	break;
+		break;
 	case "CUSTOMINT3":aMaster.setCustomInt3(Integer.valueOf(value.toString()));
-	break;
+		break;
 	case "CUSTOMDATE1":aMaster.setCustomDate1((Date)value);
-	break;
+		break;
 	case "CUSTOMDATE2":aMaster.setCustomDate1((Date)value);
-	break;
+		break;
 	
 	default:
 		break;
@@ -231,7 +227,7 @@ private java.sql.Clob stringToClob(String source)
     }
     catch (Exception e)
     {
-        System.out.println("Could not convert string to a CLOB :"+e );
+        ApplLogger.getLogger().error("Could not convert string to a CLOB :", e );
         return null;
     }
 }

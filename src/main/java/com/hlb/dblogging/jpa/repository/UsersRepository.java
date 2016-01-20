@@ -2,13 +2,14 @@ package com.hlb.dblogging.jpa.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.hlb.dblogging.jpa.model.Users;
 
-public interface UsersRepository extends CrudRepository<Users, Integer>{
+public interface UsersRepository extends CrudRepository<Users, Integer>,JpaRepository<Users,Integer>{
 
 	/*@Query("select u from Users u where deleted = ?")
 	 List<Users> findByIsEnabled(boolean isEnabled);

@@ -97,7 +97,7 @@ public class AuditMaster implements Serializable {
 		TransType = transType;
 	}
 	
-	@Column(name="MESSAGEID", nullable=true, length=25)
+	@Column(name="MESSAGEID", nullable=true, length=50)
 	public String getMessageID() {
 		return MessageID;
 	}

@@ -128,6 +128,16 @@ public class Role implements Serializable{
 	public void setAccessRights(Set<AccessRights> accessRights) {
 		this.accessRights = accessRights;
 	}
+	
+	
+	
+
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", role=" + role + ", description="
+				+ description + ", accessRights=" + accessRights + "]";
+	}
 
 
 	@Override

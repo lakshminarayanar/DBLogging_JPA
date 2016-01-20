@@ -4,13 +4,14 @@ package com.hlb.dblogging.jpa.repository;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.hlb.dblogging.jpa.model.Role;
 
-public interface RoleRepository extends CrudRepository<Role, Integer>{
+public interface RoleRepository extends CrudRepository<Role, Integer>,JpaRepository<Role, Integer>{
 
 	
 	 @Query("select r from Role r where isDeleted = ?")

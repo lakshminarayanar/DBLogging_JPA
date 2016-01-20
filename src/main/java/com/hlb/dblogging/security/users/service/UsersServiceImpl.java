@@ -11,7 +11,6 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hlb.dblogging.exception.utility.BSLException;
 import com.hlb.dblogging.jpa.model.AccessRights;
 import com.hlb.dblogging.jpa.model.Role;
-import com.hlb.dblogging.jpa.model.UserToAccessRights;
 import com.hlb.dblogging.jpa.model.Users;
 import com.hlb.dblogging.jpa.repository.UserToAccessRightsRepository;
 import com.hlb.dblogging.jpa.repository.UsersRepository;
@@ -53,9 +51,13 @@ public class UsersServiceImpl implements UsersService {
 			 
 			 ApplLogger.getLogger().info("Existing user, updating user only..");
 			 //usersToBeCreated.setEnabled(true);
+			 usersToBeCreated.setActive(users.isActive());
+			 usersToBeCreated.setDomain(users.getDomain());
+			 usersToBeCreated.setUserRoles(users.getUserRoles());
 			 usersToBeCreated.setLastModifiedBy("admin");
 			 usersToBeCreated.setLastModifiedTime(new Date());
-			 usersRepository.save(usersToBeCreated);
+			 usersToBeCreated.setDeleted(Boolean.FALSE);
+			 usersRepository.saveAndFlush(usersToBeCreated);
 			 return usersToBeCreated;
 		 }
 		 else{
@@ -170,15 +172,16 @@ public class UsersServiceImpl implements UsersService {
 		if(usersToBeUpdated == null)
 			 throw new RuntimeException("Username not found");
 		usersToBeUpdated.setUsername(users.getUsername());
-		usersToBeUpdated.setPassword(users.getPassword());
+		usersToBeUpdated.setDomain(users.getDomain());
 		usersToBeUpdated.setActive(users.isActive());
 		usersToBeUpdated.setLastModifiedBy(users.getLastModifiedBy());
 		usersToBeUpdated.setLastModifiedTime(new Date());
 		Set<Role> roleSet = new HashSet<Role>();
 		roleSet.addAll(users.getUserRoles());
 		usersToBeUpdated.setUserRoles(roleSet);
-		usersRepository.save(usersToBeUpdated);		
+		usersRepository.saveAndFlush(usersToBeUpdated);		
 		return usersToBeUpdated;
+
 	}
 	@Override
 	public Users findByUsername(String username) {

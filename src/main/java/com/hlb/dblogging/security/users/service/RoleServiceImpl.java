@@ -19,7 +19,7 @@ import com.hlb.dblogging.jpa.repository.RoleRepository;
 @Service
 public class RoleServiceImpl implements RoleService{
 
-	public static String role="ROLE_USER";
+	public static String role="GROUP_USER";
 	
 	@Resource
 	private RoleRepository roleRepository;
@@ -84,7 +84,7 @@ public class RoleServiceImpl implements RoleService{
 		Set<AccessRights> accessRightsSet = new HashSet<AccessRights>();
 		accessRightsSet.addAll(role.getAccessRights());
 		roleToBeUpdated.setAccessRights(accessRightsSet);
-		roleRepository.save(roleToBeUpdated);		
+		roleRepository.saveAndFlush(roleToBeUpdated);		
 		}	
 		return roleToBeUpdated;
 	}catch (Exception e) {

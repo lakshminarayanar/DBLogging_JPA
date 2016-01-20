@@ -2,16 +2,12 @@ package com.hlb.dblogging.jpa.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Resource;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -20,17 +16,12 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import com.hlb.dblogging.jpa.model.AuditDetail;
 import com.hlb.dblogging.jpa.repository.AuditDetailRepository;
 import com.hlb.dblogging.log.utility.ApplLogger;
 import com.hlb.dblogging.xml.utility.EbcdicToAsciiConvertUtility;
 import com.hlb.dblogging.xml.utility.XSLTransformer;
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 @Service
 public class AuditDetailServiceImpl implements AuditDetailService{
@@ -77,7 +68,7 @@ public class AuditDetailServiceImpl implements AuditDetailService{
 					 return "Can't display content now, Error caught while applying XSLT on the message";
 				 }
 			 }
-			 	return format(content);
+			 	return prettyFormat(content);
 	        }else{
 	        	// Fetch the Content from AuditDetail table with uniqueprocessId convert to ASCII Format and display in dialog
 	        	content =	hexToCharacter(content);
@@ -91,8 +82,7 @@ public class AuditDetailServiceImpl implements AuditDetailService{
 	}
 	
 	
-	@SuppressWarnings("restriction")
-	public String format(String unformattedXml) {
+	/*public String format(String unformattedXml) {
         try {
             final Document document = parseXmlFile(unformattedXml);
 
@@ -107,24 +97,26 @@ public class AuditDetailServiceImpl implements AuditDetailService{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 	
-	private Document parseXmlFile(String in) {
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            InputSource is = new InputSource(new StringReader(in));
-            return db.parse(is);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 	
-	 private static String hexToCharacter(String hexValue)
+	public  String prettyFormat(String input) {
+	    try {
+	        Source xmlInput = new StreamSource(new StringReader(input));
+	        StringWriter stringWriter = new StringWriter();
+	        StreamResult xmlOutput = new StreamResult(stringWriter);
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        transformerFactory.setAttribute("indent-number", 2);
+	        Transformer transformer = transformerFactory.newTransformer(); 
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.transform(xmlInput, xmlOutput);
+	        return xmlOutput.getWriter().toString();
+	    } catch (Exception e) {
+	        throw new RuntimeException(e); // simple exception handling, please review it
+	    }
+	}
+	
+	private static String hexToCharacter(String hexValue)
 	   {
 	      StringBuilder output = new StringBuilder("");
 	      for (int i = 0; i < hexValue.length(); i += 2)
