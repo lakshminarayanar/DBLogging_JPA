@@ -29,13 +29,13 @@ public class AuditMasterPredicates {
         	booleanBuilder.and(auditMaster.applicationTransactionId.contains(searchCriteria.getApplicationTransactionId()));
       
         if(searchCriteria.getTransactionStartDateTime()!=null && searchCriteria.getTransactionEndDateTime()==null)
-        	booleanBuilder.and(auditMaster.transDateTime.after(searchCriteria.getTransactionStartDateTime()));
+        	booleanBuilder.and(auditMaster.requestDateTime.after(searchCriteria.getTransactionStartDateTime()));
         if(searchCriteria.getTransactionStartDateTime()==null && searchCriteria.getTransactionEndDateTime()!=null)
-        	booleanBuilder.and(auditMaster.transDateTime.before(searchCriteria.getTransactionEndDateTime()));
+        	booleanBuilder.and(auditMaster.requestDateTime.before(searchCriteria.getTransactionEndDateTime()));
         if(searchCriteria.getTransactionStartDateTime()!=null && searchCriteria.getTransactionEndDateTime()!=null)
-        	booleanBuilder.and(auditMaster.transDateTime.between(searchCriteria.getTransactionStartDateTime(), searchCriteria.getTransactionEndDateTime()));
+        	booleanBuilder.and(auditMaster.requestDateTime.between(searchCriteria.getTransactionStartDateTime(), searchCriteria.getTransactionEndDateTime()));
         }catch(Exception e){
-        		ApplLogger.getLogger().info("Error caught while preparing advanced search criteria to query database ",e);
+        		ApplLogger.getLogger().info("Error caught while preparing advanced search criteria to query database. ",e);
         }
         return booleanBuilder;
     }
