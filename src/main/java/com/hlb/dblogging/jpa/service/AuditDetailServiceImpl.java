@@ -112,7 +112,8 @@ public class AuditDetailServiceImpl implements AuditDetailService{
 	        transformer.transform(xmlInput, xmlOutput);
 	        return xmlOutput.getWriter().toString();
 	    } catch (Exception e) {
-	        throw new RuntimeException(e); // simple exception handling, please review it
+	       // throw new RuntimeException(e); // simple exception handling, please review it
+	    	return input;
 	    }
 	}
 	
