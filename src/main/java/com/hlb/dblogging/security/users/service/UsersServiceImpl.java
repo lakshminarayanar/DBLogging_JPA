@@ -161,8 +161,15 @@ public class UsersServiceImpl implements UsersService {
 		
 		String hashedPassword = passwordEncoder.encode(newPassword);		
 		users.setPassword(hashedPassword);		
-		update(users);	
-		return users;
+		Users usersToBeUpdated = usersRepository.findByUsername(users.getUsername());
+		
+		if(usersToBeUpdated == null)
+			 throw new RuntimeException("Username not found");
+		usersToBeUpdated.setPassword(hashedPassword);
+		usersToBeUpdated.setLastModifiedTime(new Date());
+		usersToBeUpdated.setLastModifiedBy(users.getUsername());
+		usersRepository.save(usersToBeUpdated);
+		return usersToBeUpdated;
 	}
 	@Override
 	@Transactional
