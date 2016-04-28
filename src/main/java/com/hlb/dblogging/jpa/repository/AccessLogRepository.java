@@ -13,7 +13,7 @@ import com.hlb.dblogging.jpa.model.AccessLog;
 public interface AccessLogRepository extends CrudRepository<AccessLog, Integer>  {
 	
 	
-	@Query("select al from AccessLog al where isDeleted = 0")
+	@Query("select al from AccessLog al where isDeleted = 0 order by id asc ")
 	 List<AccessLog> findAll();
 	
 }
