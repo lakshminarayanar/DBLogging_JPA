@@ -113,7 +113,7 @@ public class AuditMaster implements Serializable {
 		ServiceID = serviceID;
 	}
 
-	@Column(name="APPLNAME", nullable=true, length=6)
+	@Column(name="APPLNAME", nullable=true, length=20)
 	public String getApplName() {
 		return ApplName;
 	}
@@ -121,7 +121,7 @@ public class AuditMaster implements Serializable {
 		ApplName = applName;
 	}
 	
-	@Column(name="APPID", nullable=false, length=6)
+	@Column(name="APPID", nullable=false, length=20)
 	public String getAppID() {
 		return AppID;
 	}
