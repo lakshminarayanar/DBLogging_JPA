@@ -15,6 +15,7 @@ import javax.persistence.Table;
 public class AuditDetail implements Serializable {
 	
 	
+	
 	/**
 	 * 
 	 */
